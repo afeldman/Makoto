@@ -1,7 +1,6 @@
 package kpc
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -50,14 +49,18 @@ type KPC struct {
 	Consts   []string `yaml:"consts"`   //the const files of this project
 }
 
-func (this *KPC)ToYAML(path string){
+func (this *KPC) ToYAML(path string) {
 
 	if path == "" {
-		path =	os.Getenv ("KPC_HOME")
+		path = os.Getenv("KPC_HOME")
 	}
 
-	err := ioutil.WriteFile(path, yaml.Marshal(this), 0644)
-        if err != nil {
+	d, e := yaml.Marshal(this)
+	if e != nil {
+		panic(e)
+	}
+	err := ioutil.WriteFile(path, d, 0644)
+	if err != nil {
 		panic(err)
 	}
 }
@@ -65,7 +68,7 @@ func (this *KPC)ToYAML(path string){
 func FromYAML(path string) *KPC {
 
 	if path == "" {
-		path =	os.Getenv ("KPC_HOME")
+		path = os.Getenv("KPC_HOME")
 	}
 
 	file, err := ioutil.ReadFile(path)
