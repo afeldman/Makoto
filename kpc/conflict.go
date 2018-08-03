@@ -64,4 +64,14 @@ func (this *Conflict)RejectVersion(version string){
 	if has_elem && this.GetLength() > 1{
 		this.Versions[idx] = ""
 	}
+
+	var r []string
+
+	for _, str := range this.Versions{
+		if str != ""{
+			r = append(r,str)
+		}
+	}
+
+	this.Versions = r
 }
