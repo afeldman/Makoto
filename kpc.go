@@ -1,3 +1,8 @@
+// Copyright Anton Feldmann
+//
+// KPC is a Karel package managemant file.
+// This structure is used to inform the tools about the structure of the project
+//
 package kpc
 
 import (
@@ -24,6 +29,9 @@ type Author struct {
 }
 
 type KPC struct {
+	/********************             KPC          ********************/
+	KPC_VERSION  strings       `yaml:"kpc_version"`  // version of the kpc
+
 	/******************** Package information data ********************/
 	Name         string        `yaml:"name"`         // project name
 	Description  string        `yaml:"description"`  // project discription
@@ -43,10 +51,12 @@ type KPC struct {
 	ConstDir   string `yaml:"constdir"`   // installation path of the constant diclaraion files (*klc)
 
 	/*************** specific file includes ***************************/
-	Libs     []string `yaml:"libs"`     // the source file to compile
+	main     string   `yaml:"main"`     // the source file to compile
+	Dict     []string `yaml:"dict"`     // dictionary file
+	Form     []string `yaml:"form"`     // form file
 	Types    []string `yaml:"types"`    // the library for
 	Includes []string `yaml:"includes"` // specific header files for comilation
-	Consts   []string `yaml:"consts"`   //the const files of this project
+	Consts   []string `yaml:"consts"`   // the const files of this project
 }
 
 func (this *KPC) ToYAML(path string) {
