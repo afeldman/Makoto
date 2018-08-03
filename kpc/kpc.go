@@ -5,14 +5,6 @@
 //
 package kpc
 
-import (
-	"io/ioutil"
-	"log"
-	"os"
-
-	"gopkg.in/yaml.v2"
-)
-
 type KPC struct {
 	/********************             KPC          ********************/
 	KPC_VERSION  string        `yaml:"kpc_version"`  // version of the kpc
@@ -42,41 +34,4 @@ type KPC struct {
 	Types    []string `yaml:"types"`    // the library for
 	Includes []string `yaml:"includes"` // specific header files for comilation
 	Consts   []string `yaml:"consts"`   // the const files of this project
-}
-
-func (this *KPC) ToYAML(path string) {
-
-	if path == "" {
-		path = os.Getenv("KPC_HOME")
-	}
-
-	d, e := yaml.Marshal(this)
-	if e != nil {
-		panic(e)
-	}
-	err := ioutil.WriteFile(path, d, 0644)
-	if err != nil {
-		panic(err)
-	}
-}
-
-func FromYAML(path string) *KPC {
-
-	if path == "" {
-		path = os.Getenv("KPC_HOME")
-	}
-
-	file, err := ioutil.ReadFile(path)
-	if err != nil {
-		log.Fatalf("error: %v", err)
-	}
-
-	kpc := KPC{}
-
-	err = yaml.Unmarshal([]byte(file), &kpc)
-	if err != nil {
-		log.Fatalf("error: %v", err)
-	}
-
-	return &kpc
 }
