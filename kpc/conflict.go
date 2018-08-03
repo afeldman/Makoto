@@ -1,16 +1,32 @@
+// Copyright Anton Feldmann
+//
+// KPC is a Karel package managemant file.
+// This structure is used to inform the tools about the structure of the project
+//
 package kpc
 
+// different projects can contain different conflicts on the given requirements
+//
+// a conflict is targeted with a project name and one or different version of this project
 type Conflict struct {
 	Name     string   `yaml:"name"`
 	Versions []string `yaml:"version"`
 }
 
+// building a conflict information
+//
+// a conflict has to start with a name and one version.
+// if there is non name then there is not conflict and
+// if there is not a start version, then there is no conflict
+//
+// @param {string} name the name of the conflicting project
+// @param {string} version the version of the conflict
+//
+// @return {*Conflict} the conflict information
 func Conflict_Init(name, version string) (*Conflict){
-	tmp := []string{version}
-
 	return &Conflict{
 		Name: name,
-		Versions: tmp,
+		Versions: []string{version},
 	}
 }
 
