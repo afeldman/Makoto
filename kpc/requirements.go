@@ -18,7 +18,7 @@ type Requirement struct {
 //
 // @param {string} the name of the requirements
 //
-// @return Requitement pointer. The Structure ony containing the base information
+// @return {*Requirement} The Structure ony containing the base information
 func Requirement_Init(name string) (*Requirement) {
 	return &Requirement{
 		Name: name,
@@ -47,15 +47,21 @@ func (this *Requirement) SetName(name string){
 }
 
 // get version of requirement
-// get the Version of the
+// get the requirement version
 //
 // this function is pagt of the Requirement structure
 //
-// @param {string} name. the new name for the requirement
+// @return {*string} the requirement version
 func (this *Requirement) GetVersion() (*string) {
 	return &(this.Version)
 }
 
+// get name of requirement
+// get the requirement name
+//
+// this function is pagt of the Requirement structure
+//
+// @return {*string} the requirement name
 func (this *Requirement) GetName() (*string){
 	return &(this.Name)
 }

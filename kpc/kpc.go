@@ -18,11 +18,6 @@ type Conflict struct {
 	Versions []string `yaml:"version"`
 }
 
-type Author struct {
-	Name  string `yaml:"name"`
-	Email string `yaml:"email"`
-}
-
 type KPC struct {
 	/********************             KPC          ********************/
 	KPC_VERSION  string        `yaml:"kpc_version"`  // version of the kpc
