@@ -13,11 +13,6 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-type Requirement struct {
-	Name    string `yaml:"name"`
-	Version string `yaml:"version"`
-}
-
 type Conflict struct {
 	Name     string   `yaml:"name"`
 	Versions []string `yaml:"version"`
@@ -30,7 +25,7 @@ type Author struct {
 
 type KPC struct {
 	/********************             KPC          ********************/
-	KPC_VERSION  strings       `yaml:"kpc_version"`  // version of the kpc
+	KPC_VERSION  string        `yaml:"kpc_version"`  // version of the kpc
 
 	/******************** Package information data ********************/
 	Name         string        `yaml:"name"`         // project name
