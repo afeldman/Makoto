@@ -18,12 +18,12 @@ type KPC struct {
 	Name         string        `yaml:"name"`         // project name
 	Description  string        `yaml:"description"`  // project discription
 	Version      string        `yaml:"version"`      // project version
-	Homepage     string        `yaml:"url"`          // project url
+	Homepage     string        `yaml:"url"`          // project homepage
 	Requirements []Requirement `yaml:"requirements"` // dependnency list
 	Conflicts    []Conflict    `yaml:"conflicts"`    // known conflicts
 	Authors      []Author      `yaml:"author"`       // authorname
-	Repo         Repo          `yaml:"source"`       // sorce url
-	Issues       string        `yaml:"issues"`
+	Repo         Repo          `yaml:"source"`       // sorce code repository url
+	Issues       string        `yaml:"issues"`       // project issue homepage
 
 	/********************* Package path settings***********************/
 	/*Package path settings*/
@@ -32,6 +32,8 @@ type KPC struct {
 	TypeDir    string `yaml:"typedir"`    // installation path of project typefiles (*.t.kl)
 	IncludeDir string `yaml:"includedir"` // installation path to project headerfiles (*.h.kl)
 	ConstDir   string `yaml:"constdir"`   // installation path of the constant diclaraion files (*.c.kl)
+	FormDir    string `yaml:"formdir"`    // if the package has a form to display content. the files might be in an directory
+	DictDir    string `yaml:"dictdir"`    // dictionaries are available for the
 
 	/*************** specific file includes ***************************/
 	Main     string   `yaml:"main"`     // the source file to compile
