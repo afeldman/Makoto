@@ -5,6 +5,11 @@
 //
 package kpc
 
+type Repo struct {
+	Type string `yaml:"repo"`
+	URL  string `yaml:"repo"`
+}
+
 type KPC struct {
 	/********************             KPC          ********************/
 	KPC_Version string `yaml:"kpc_version"` // version of the kpc
@@ -13,11 +18,12 @@ type KPC struct {
 	Name         string        `yaml:"name"`         // project name
 	Description  string        `yaml:"description"`  // project discription
 	Version      string        `yaml:"version"`      // project version
-	Url          string        `yaml:"url"`          // project url
+	Homepage     string        `yaml:"url"`          // project url
 	Requirements []Requirement `yaml:"requirements"` // dependnency list
 	Conflicts    []Conflict    `yaml:"conflicts"`    // known conflicts
 	Authors      []Author      `yaml:"author"`       // authorname
-	Source       string        `yaml:"source"`       // sorce url
+	Repo         Repo          `yaml:"source"`       // sorce url
+	Issues       string        `yaml:"issues"`
 
 	/********************* Package path settings***********************/
 	/*Package path settings*/
@@ -28,9 +34,9 @@ type KPC struct {
 	ConstDir   string `yaml:"constdir"`   // installation path of the constant diclaraion files (*.c.kl)
 
 	/*************** specific file includes ***************************/
-	main     string   `yaml:"main"`     // the source file to compile
-	Dict     []string `yaml:"dict"`     // dictionary file
-	Form     []string `yaml:"form"`     // form file
+	Main     string   `yaml:"main"`     // the source file to compile
+	Dicts    []string `yaml:"dict"`     // dictionary file
+	Forms    []string `yaml:"form"`     // form file
 	Types    []string `yaml:"types"`    // the library for
 	Includes []string `yaml:"includes"` // specific header files for comilation
 	Consts   []string `yaml:"consts"`   // the const files of this project
@@ -42,10 +48,22 @@ func KPC_INIT(name string) *KPC {
 		Name:         name,
 		Description:  "",
 		Version:      "",
-		Url:          "",
+		Homepage:     "",
 		Requirements: []Requirement{},
 		Conflicts:    []Conflicts{},
 		Authors:      []Author{},
-		Source:       "",
+		Repo:         {Type: "", URL: ""},
+		Issus:        "",
+		Prefix:       "",
+		SrcDir:       "",
+		TypeDir:      "",
+		IncludeDir:   "",
+		ConstDir:     "",
+		Main:         "",
+		Dists:        []string{},
+		Includes:     []string{},
+		Forms:        []string{},
+		Types:        []string{},
+		Consts:       []string{},
 	}
 }
