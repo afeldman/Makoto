@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	kpc "github.com/afeldman/Makoto"
+	kpc "github.com/afeldman/Makoto/kpc"
 	"github.com/spf13/cobra"
 )
 

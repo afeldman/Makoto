@@ -3,11 +3,11 @@ package main
 import (
 	"log"
 
-	"github.com/afeldman/Rossum/src"
+	"github.com/afeldman/Makoto/cmd"
 )
 
 func main() {
-	if err := cmd.Rossum.Execute(); err != nil {
+	if err := cmd.Makoto.Execute(); err != nil {
 		log.Fatal(err)
 	}
 }

@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	kpc "github.com/afeldman/Makoto"
+	kpc "github.com/afeldman/Makoto/kpc"
 )
 
 var pversion = &cobra.Command{

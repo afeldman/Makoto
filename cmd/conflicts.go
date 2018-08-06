@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	kpc "github.com/afeldman/Makoto"
+	kpc "github.com/afeldman/Makoto/kpc"
 	"github.com/spf13/cobra"
 )
 
@@ -15,8 +15,8 @@ var conflicts = &cobra.Command{
 	Long: `
 Using software in big projects usually, somtimes coses error because
 different software versions are not compatible over time. To avoid this
-the field "conclicts lists a set of known conflicts with different software 
-packages. 
+the field "conclicts lists a set of known conflicts with different software
+packages.
 Please feel free to include conflicts in that list, if you run into software version
 conflicts.
 

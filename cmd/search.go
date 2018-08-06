@@ -5,14 +5,14 @@ import (
 
 	"github.com/spf13/cobra"
 
-	kpc "github.com/afeldman/Makoto"
+	kpc "github.com/afeldman/Makoto/kpc"
 )
 
 var contains = &cobra.Command{
 	Use:   "contains [KPC PACKAGE NAME]",
 	Short: "is the package part of the kpc set",
 	Long: `
-Befor you can start using ROSSUM with all power,
+Befor you can start using Makoto with all power,
 then you have to make shure the package is installed.
 This method is going to show if a package is containt in the
 set of known kpc projects.

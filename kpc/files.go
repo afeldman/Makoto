@@ -74,7 +74,7 @@ func (this *KPC)GetIncludes() ([]string){
 	return req
 }
 
-func (this *KPC)AddTye(type_ string){
+func (this *KPC)AddType(type_ string){
 	this.Types.Add(type_)
 }
 
@@ -94,7 +94,7 @@ func (this *KPC)TypesSize() (int){
 	return this.Types.Size()
 }
 
-func (this *KPC)RejectTypes(name string){
+func (this *KPC)RejectType(name string){
 	this.Types.Remove(name)
 }
 

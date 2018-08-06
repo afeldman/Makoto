@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	kpc "github.com/afeldman/Makoto"
+	kpc "github.com/afeldman/Makoto/kpc"
 	"github.com/spf13/cobra"
 )
 
@@ -60,7 +60,7 @@ AUTHOR:
 
 			kpg := kpc.GetKPC(args[0])
 			if kpg != nil {
-				buff, err := json.Marshal(&kpg.Libs)
+				buff, err := json.Marshal(&kpg.Main)
 				if err != nil {
 					log.Fatalln(err)
 				}

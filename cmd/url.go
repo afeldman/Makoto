@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	kpc "github.com/afeldman/Makoto"
+	kpc "github.com/afeldman/Makoto/kpc"
 )
 
 var url = &cobra.Command{
@@ -26,7 +26,7 @@ AUTHOR:
 
 		kpg := kpc.GetKPC(args[0])
 		if kpg != nil {
-			fmt.Print(kpg.Url)
+			fmt.Print(kpg.Homepage)
 		} else {
 			log.Fatalln("can not find the requested package")
 		}

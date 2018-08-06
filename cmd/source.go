@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	kpc "github.com/afeldman/Makoto"
+	kpc "github.com/afeldman/Makoto/kpc"
 )
 
 var source = &cobra.Command{
@@ -31,7 +31,7 @@ AUTHOR:
 
 		kpg := kpc.GetKPC(args[0])
 		if kpg != nil {
-			fmt.Print(kpg.Source)
+			fmt.Print(kpg.Main)
 		} else {
 			log.Fatalln("The requested pacakge can nor be found")
 		}
