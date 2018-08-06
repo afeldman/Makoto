@@ -7,11 +7,6 @@ package kpc
 
 import "github.com/emirpasic/gods/sets/hashset"
 
-type Repo struct {
-	Type string `json:"repo"`
-	URL  string `json:"repo"`
-}
-
 type KPC struct {
 	/********************             KPC          ********************/
 	KPC_Version string `json:"kpc_version"` // version of the kpc
@@ -21,11 +16,11 @@ type KPC struct {
 	Description  string        `json:"description"`  // project discription
 	Version      string        `json:"version"`      // project version
 	Homepage     string        `json:"url"`          // project homepage
-	Requirements hashset.Set   `json:"requirements"` // dependnency list
-	Conflicts    hashset.Set   `json:"conflicts"`    // known conflicts
-	Authors      hashset.Set   `json:"author"`       // authorname
-	Repository   Repo          `json:"source"`       // sorce code repository url
-	Issues       string        `json:"issues"`       // project issue homepage
+	Requirements *hashset.Set   `json:"requirements"` // dependnency list
+	Conflicts    *hashset.Set   `json:"conflicts"`    // known conflicts
+	Authors      *hashset.Set   `json:"author"`       // authorname
+	Repository   *Repo          `json:"source"`       // sorce code repository url
+	Issue        string        `json:"issues"`       // project issue homepage
 
 	/********************* Package path settings***********************/
 	/*Package path settings*/
@@ -39,11 +34,11 @@ type KPC struct {
 
 	/*************** specific file includes ***************************/
 	Main     string   `json:"main"`     // the source file to compile
-	Dicts    hashset.Set `json:"dict"`     // dictionary file
-	Forms    hashset.Set `json:"form"`     // form file
-	Types    hashset.Set `json:"types"`    // the library for
-	Includes hashset.Set `json:"includes"` // specific header files for comilation
-	Consts   hashset.Set `json:"consts"`   // the const files of this project
+	Dicts    *hashset.Set `json:"dict"`     // dictionary file
+	Forms    *hashset.Set `json:"form"`     // form file
+	Types    *hashset.Set `json:"types"`    // the library for
+	Includes *hashset.Set `json:"includes"` // specific header files for comilation
+	Consts   *hashset.Set `json:"consts"`   // the const files of this project
 }
 
 func KPC_Init(name string) (*KPC) {
@@ -53,22 +48,22 @@ func KPC_Init(name string) (*KPC) {
 		Description:  "",
 		Version:      "",
 		Homepage:     "",
-		Repository:   Repo{Type: "", URL: ""},
-		Issues:       "",
+		Repository:   &Repo{Type: "", URL: ""},
+		Issue:        "",
 		Prefix:       "",
 		SrcDir:       "",
 		TypeDir:      "",
 		IncludeDir:   "",
 		ConstDir:     "",
 		Main:         "",
-		Requirements: *hashset.New(),
-		Conflicts:    *hashset.New(),
-		Authors:      *hashset.New(),
-		Dicts:        *hashset.New(),
-		Includes:     *hashset.New(),
-		Forms:        *hashset.New(),
-		Types:        *hashset.New(),
-		Consts:       *hashset.New(),
+		Requirements: hashset.New(),
+		Conflicts:    hashset.New(),
+		Authors:      hashset.New(),
+		Dicts:        hashset.New(),
+		Includes:     hashset.New(),
+		Forms:        hashset.New(),
+		Types:        hashset.New(),
+		Consts:       hashset.New(),
 	}
 }
 
