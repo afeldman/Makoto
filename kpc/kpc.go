@@ -5,67 +5,73 @@
 //
 package kpc
 
+import "github.com/emirpasic/gods/sets/hashset"
+
 type Repo struct {
-	Type string `yaml:"repo"`
-	URL  string `yaml:"repo"`
+	Type string `json:"repo"`
+	URL  string `json:"repo"`
 }
 
 type KPC struct {
 	/********************             KPC          ********************/
-	KPC_Version string `yaml:"kpc_version"` // version of the kpc
+	KPC_Version string `json:"kpc_version"` // version of the kpc
 
 	/******************** Package information data ********************/
-	Name         string        `yaml:"name"`         // project name
-	Description  string        `yaml:"description"`  // project discription
-	Version      string        `yaml:"version"`      // project version
-	Homepage     string        `yaml:"url"`          // project homepage
-	Requirements []Requirement `yaml:"requirements"` // dependnency list
-	Conflicts    []Conflict    `yaml:"conflicts"`    // known conflicts
-	Authors      []Author      `yaml:"author"`       // authorname
-	Repo         Repo          `yaml:"source"`       // sorce code repository url
-	Issues       string        `yaml:"issues"`       // project issue homepage
+	Name         string        `json:"name"`         // project name
+	Description  string        `json:"description"`  // project discription
+	Version      string        `json:"version"`      // project version
+	Homepage     string        `json:"url"`          // project homepage
+	Requirements hashset.Set   `json:"requirements"` // dependnency list
+	Conflicts    hashset.Set   `json:"conflicts"`    // known conflicts
+	Authors      hashset.Set   `json:"author"`       // authorname
+	Repository   Repo          `json:"source"`       // sorce code repository url
+	Issues       string        `json:"issues"`       // project issue homepage
 
 	/********************* Package path settings***********************/
 	/*Package path settings*/
-	Prefix     string `yaml:"prefix"`     // root path where the packge is installed
-	SrcDir     string `yaml:"srcdir"`     // installation path to project sourcefiles (*.kl)
-	TypeDir    string `yaml:"typedir"`    // installation path of project typefiles (*.t.kl)
-	IncludeDir string `yaml:"includedir"` // installation path to project headerfiles (*.h.kl)
-	ConstDir   string `yaml:"constdir"`   // installation path of the constant diclaraion files (*.c.kl)
-	FormDir    string `yaml:"formdir"`    // if the package has a form to display content. the files might be in an directory
-	DictDir    string `yaml:"dictdir"`    // dictionaries are available for the
+	Prefix     string `json:"prefix"`     // root path where the packge is installed
+	SrcDir     string `json:"srcdir"`     // installation path to project sourcefiles (*.kl)
+	TypeDir    string `json:"typedir"`    // installation path of project typefiles (*.t.kl)
+	IncludeDir string `json:"includedir"` // installation path to project headerfiles (*.h.kl)
+	ConstDir   string `json:"constdir"`   // installation path of the constant diclaraion files (*.c.kl)
+	FormDir    string `json:"formdir"`    // if the package has a form to display content. the files might be in an directory
+	DictDir    string `json:"dictdir"`    // dictionaries are available for the
 
 	/*************** specific file includes ***************************/
-	Main     string   `yaml:"main"`     // the source file to compile
-	Dicts    []string `yaml:"dict"`     // dictionary file
-	Forms    []string `yaml:"form"`     // form file
-	Types    []string `yaml:"types"`    // the library for
-	Includes []string `yaml:"includes"` // specific header files for comilation
-	Consts   []string `yaml:"consts"`   // the const files of this project
+	Main     string   `json:"main"`     // the source file to compile
+	Dicts    hashset.Set `json:"dict"`     // dictionary file
+	Forms    hashset.Set `json:"form"`     // form file
+	Types    hashset.Set `json:"types"`    // the library for
+	Includes hashset.Set `json:"includes"` // specific header files for comilation
+	Consts   hashset.Set `json:"consts"`   // the const files of this project
 }
 
-func KPC_INIT(name string) *KPC {
+func KPC_Init(name string) (*KPC) {
 	return &KPC{
 		KPC_Version:  KPC_VERSION,
 		Name:         name,
 		Description:  "",
 		Version:      "",
 		Homepage:     "",
-		Requirements: []Requirement{},
-		Conflicts:    []Conflicts{},
-		Authors:      []Author{},
-		Repo:         {Type: "", URL: ""},
-		Issus:        "",
+		Repository:   Repo{Type: "", URL: ""},
+		Issues:       "",
 		Prefix:       "",
 		SrcDir:       "",
 		TypeDir:      "",
 		IncludeDir:   "",
 		ConstDir:     "",
 		Main:         "",
-		Dists:        []string{},
-		Includes:     []string{},
-		Forms:        []string{},
-		Types:        []string{},
-		Consts:       []string{},
+		Requirements: *hashset.New(),
+		Conflicts:    *hashset.New(),
+		Authors:      *hashset.New(),
+		Dicts:        *hashset.New(),
+		Includes:     *hashset.New(),
+		Forms:        *hashset.New(),
+		Types:        *hashset.New(),
+		Consts:       *hashset.New(),
 	}
+}
+
+func (this *KPC)GetKPCVersion() (string){
+	return this.KPC_Version;
 }

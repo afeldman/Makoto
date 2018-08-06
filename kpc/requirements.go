@@ -8,8 +8,8 @@ package kpc
 // this methods readout the information of additional KPC packages.
 // if the packages are not available, then the program is not buildable
 type Requirement struct {
-	Name    string `yaml:"name"`
-	Version string `yaml:"version"`
+	Name    string `json:"name"`
+	Version string `json:"version"`
 }
 
 // build a Requirement structure
