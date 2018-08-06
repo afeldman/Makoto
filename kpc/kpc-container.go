@@ -2,8 +2,8 @@ package kpc
 
 import (
 	"fmt"
-	"log"
-	"path/filepath"
+//	"log"
+//	"path/filepath"
 )
 
 var KPCs map[string]KPC
@@ -12,17 +12,17 @@ func InitKPCs(basic_path []string) {
 
 	KPCs = make(map[string]KPC)
 
-	for _, dir := range basic_path {
-		files, err := filepath.Glob(dir + "*.kpc")
-		if err != nil {
-			log.Fatalln(err)
-		}
+//	for _, dir := range basic_path {
+//		files, err := filepath.Glob(dir + "*.kpc")
+//		if err != nil {
+//			log.Fatalln(err)
+//		}
 
-		for _, kpc_file := range files {
-			kcpt := FromYAML(kpc_file)
-			KPCs[kcpt.Name] = *kcpt
-		}
-	}
+//		for _, kpc_file := range files {
+//			kcpt := FromYAML(kpc_file)
+//			KPCs[kcpt.Name] = *kcpt
+	//	}
+//	}
 }
 
 func KPC_Size() int {
