@@ -1,8 +1,8 @@
 package kpc
 
 type Repo struct {
-	Type string `json:"repo"`
-	URL  string `json:"repo"`
+	Type string `json:"type"`
+	URL  string `json:"url"`
 }
 
 func Repo_Init() (*Repo){
