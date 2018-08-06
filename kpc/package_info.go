@@ -67,6 +67,15 @@ func (this *KPC)AddConflict(con *Conflict){
 	this.Conflicts.Add(con)
 }
 
+func (this *KPC)GetConflicts() ([]Conflict){
+	var req []Conflict
+	 for _, val := range this.Conflicts.Values() {
+		 req = append(req, val.(Conflict))
+	 }
+
+	return req
+}
+
 func (this *KPC)GetConflict(name string) (*Conflict){
 	var con *Conflict
 

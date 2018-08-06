@@ -51,10 +51,4 @@ var _ = Describe("Authors", func() {
 			Expect(*(aut2.GetName())).Should(Equal("bar foo"))
 		})
 	})
-
-	Context("author io", func(){
-		It("Author to Json", func(){
-			Expect(aut2.ToJSON()).Should(Equal("{\"name\":\"Dr. Feldmann\",\"email\":\"\"}"))
-		})
-	})
 })

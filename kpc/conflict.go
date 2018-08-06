@@ -5,14 +5,16 @@
 //
 package kpc
 
-import "github.com/emirpasic/gods/sets/hashset"
+import (
+	"github.com/emirpasic/gods/sets/hashset"
+)
 
 // different projects can contain different conflicts on the given requirements
 //
 // a conflict is targeted with a project name and one or different version of this project
 type Conflict struct {
 	Name     string  `json:"name"`
-	Versions hashset.Set `json:"version"`
+	Versions *hashset.Set `json:"version,omitempty"`
 }
 
 // building a conflict information
@@ -28,9 +30,10 @@ type Conflict struct {
 func Conflict_Init(name, version string) (*Conflict){
 	m := hashset.New()
 	m.Add(version)
+
 	return &Conflict{
 		Name: name,
-		Versions: *m,
+		Versions: m,
 	}
 }
 

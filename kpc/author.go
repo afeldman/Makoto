@@ -5,24 +5,11 @@
 //
 package kpc
 
-import (
-	"encoding/json"
-	"log"
-)
-
 // a package has to be written by atleased one author
 // an author is defined by name and the email
 type Author struct {
 	Name  string `json:"name"`
 	Email string `json:"email"`
-}
-
-func (this *Author)ToJSON() (string){
-	json_string, err := json.Marshal(*this)
-	if err != nil {
-		log.Fatal(err)
-	}
-	return string(json_string);
 }
 
 // an author needs atleased a name

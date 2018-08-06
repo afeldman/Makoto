@@ -16,10 +16,10 @@ type KPC struct {
 	Description  string        `json:"description"`  // project discription
 	Version      string        `json:"version"`      // project version
 	Homepage     string        `json:"url"`          // project homepage
-	Requirements *hashset.Set   `json:"requirements"` // dependnency list
-	Conflicts    *hashset.Set   `json:"conflicts"`    // known conflicts
-	Authors      *hashset.Set   `json:"author"`       // authorname
-	Repository   *Repo          `json:"source"`       // sorce code repository url
+	Requirements *hashset.Set   `json:"requirements,omitempty"` // dependnency list
+	Conflicts    *hashset.Set   `json:"conflicts,omitempty"`    // known conflicts
+	Authors      *hashset.Set   `json:"author,omitempty"`       // authorname
+	Repository   *Repo          `json:"source,omitempty"`       // sorce code repository url
 	Issue        string        `json:"issues"`       // project issue homepage
 
 	/********************* Package path settings***********************/
@@ -34,11 +34,11 @@ type KPC struct {
 
 	/*************** specific file includes ***************************/
 	Main     string   `json:"main"`     // the source file to compile
-	Dicts    *hashset.Set `json:"dict"`     // dictionary file
-	Forms    *hashset.Set `json:"form"`     // form file
-	Types    *hashset.Set `json:"types"`    // the library for
-	Includes *hashset.Set `json:"includes"` // specific header files for comilation
-	Consts   *hashset.Set `json:"consts"`   // the const files of this project
+	Dicts    *hashset.Set `json:"dict,omitempty"`     // dictionary file
+	Forms    *hashset.Set `json:"form,omitempty"`     // form file
+	Types    *hashset.Set `json:"types,omitempty"`    // the library for
+	Includes *hashset.Set `json:"includes,omitempty"` // specific header files for comilation
+	Consts   *hashset.Set `json:"consts,omitempty"`   // the const files of this project
 }
 
 func KPC_Init(name string) (*KPC) {

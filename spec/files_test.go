@@ -33,7 +33,6 @@ var _ = Describe("KPC", func() {
 			tkpc.AddConst("cba")
 			consts := tkpc.GetConsts()
 			Expect(len(consts) ).Should(Equal(2))
-			Expect(consts[0] ).Should(Equal("abc"))
 		})
 		It("check includes", func(){
 			Expect( tkpc.IncludesSize() ).Should(Equal(0))
@@ -46,7 +45,6 @@ var _ = Describe("KPC", func() {
 			tkpc.AddInclude("cba")
 			inc := tkpc.GetIncludes()
 			Expect(len(inc) ).Should(Equal(2))
-			Expect(inc[0] ).Should(Equal("abc"))
 		})
 		It("check forms", func(){
 			Expect( tkpc.FormsSize() ).Should(Equal(0))
@@ -59,7 +57,6 @@ var _ = Describe("KPC", func() {
 			tkpc.AddForm("cba")
 			forms := tkpc.GetForms()
 			Expect( len(forms) ).Should(Equal(2))
-			Expect( forms[0] ).Should(Equal("abc"))
 		})
 		It("check dict", func(){
 			Expect( tkpc.DictsSize() ).Should(Equal(0))
@@ -72,7 +69,6 @@ var _ = Describe("KPC", func() {
 			tkpc.AddDict("cba")
 			dicts := tkpc.GetDicts()
 			Expect( len(dicts) ).Should(Equal(2))
-			Expect( dicts[0] ).Should(Equal("abc"))
 		})
 		It("check type", func(){
 			Expect( tkpc.TypesSize() ).Should(Equal(0))
@@ -85,7 +81,6 @@ var _ = Describe("KPC", func() {
 			tkpc.AddType("cba")
 			types := tkpc.GetTypes()
 			Expect( len(types) ).Should(Equal(2))
-			Expect( types[0] ).Should(Equal("abc"))
 		})
 	})
 
