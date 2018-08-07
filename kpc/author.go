@@ -8,8 +8,8 @@ package kpc
 // a package has to be written by atleased one author
 // an author is defined by name and the email
 type Author struct {
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	Name  string `json:"name" yaml:"name"`
+	Email string `json:"email" yaml:"email"`
 }
 
 // an author needs atleased a name

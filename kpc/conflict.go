@@ -9,8 +9,8 @@ package kpc
 //
 // a conflict is targeted with a project name and one or different version of this project
 type Conflict struct {
-	Name     string  `json:"name"`
-	Versions []string `json:"version"`
+	Name     string  `json:"name" yaml:"name"`
+	Versions []string `json:"version" yaml:"version"`
 }
 
 // building a conflict information
