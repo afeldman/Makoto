@@ -45,7 +45,7 @@ var _ = Describe("KPC", func() {
 		It("check Requirements ", func(){
 			Expect( tkpc.RequirementSize() ).Should(Equal(0))
 			req := Requirement_Init("test")
-			tkpc.AddRequirement(req)
+			tkpc.AddRequirement(*req)
 			Expect( (*tkpc.GetRequirement("test")).Name ).Should(Equal("test"))
 			Expect( tkpc.RequirementSize() ).Should(Equal(1))
 			tkpc.RejectRequirement("test")
@@ -54,7 +54,7 @@ var _ = Describe("KPC", func() {
 		It("check Requirements ", func(){
 			Expect( tkpc.ConflictSize() ).Should(Equal(0))
 			con := Conflict_Init("test","0.1.4")
-			tkpc.AddConflict(con)
+			tkpc.AddConflict(*con)
 			Expect( (tkpc.GetConflict("test")).Name ).Should(Equal("test"))
 			Expect( tkpc.ConflictSize() ).Should(Equal(1))
 			tkpc.RejectConflict("test")
@@ -63,7 +63,7 @@ var _ = Describe("KPC", func() {
 		It("check Authors ", func(){
 			Expect( tkpc.AuthorsSize() ).Should(Equal(0))
 			aut := Author_Init("anton")
-			tkpc.AddAuthor(aut)
+			tkpc.AddAuthor(*aut)
 			Expect( (tkpc.GetAuthor("anton")).Name ).Should(Equal("anton"))
 			Expect( tkpc.AuthorsSize() ).Should(Equal(1))
 			tkpc.RejectAuthor("anton")
@@ -71,15 +71,16 @@ var _ = Describe("KPC", func() {
 		})
 		It("check Repo ", func(){
 			repo := Repo_Init()
-			tkpc.AddRepo(repo)
+
+			tkpc.AddRepo(*repo)
 			Expect( *((tkpc.GetRepo()).GetType()) ).Should(Equal(""))
 			Expect( *((tkpc.GetRepo()).GetURL()) ).Should(Equal(""))
 
-			repo.SetType("git")
-			Expect( *((tkpc.GetRepo()).GetType()) ).Should(Equal("git"))
-
-			repo.SetURL("github")
-			Expect( *((tkpc.GetRepo()).GetURL()) ).Should(Equal("github"))
+			repo2 := tkpc.GetRepo()
+			repo2.SetType("git")
+			repo2.SetURL("github")
+			Expect( *(repo2).GetType() ).Should(Equal("git"))
+			Expect( *(repo2).GetURL() ).Should(Equal("github"))
 		})
 		It("Check Issue ", func(){
 			Expect( *(tkpc.GetIssue()) ).Should(Equal(""))

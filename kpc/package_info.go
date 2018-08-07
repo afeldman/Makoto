@@ -32,114 +32,103 @@ func (this *KPC)SetHomepage(url string){
 	this.Homepage = url
 }
 
-func (this *KPC)AddRequirement(req *Requirement){
-	this.Requirements.Add(req)
+func (this *KPC)AddRequirement(req Requirement){
+	this.Requirements = append(this.Requirements,req)
 }
 
 func (this *KPC)GetRequirement(name string) (*Requirement){
-	var req *Requirement
-
-	for i := range this.Requirements.Values() {
-		req = (this.Requirements.Values()[i]).(*Requirement)
-		if req.Name == name {
-			return req
+	for _, val := range this.Requirements {
+		if val.Name == name {
+			return &val
 		}
 	}
 	return nil
 }
 
 func (this *KPC)RequirementSize() (int){
-	return this.Requirements.Size()
+	return len(this.Requirements)
 }
 
 func (this *KPC)RejectRequirement(name string){
-	var req *Requirement
-
-	for i := range this.Requirements.Values() {
-		req = (this.Requirements.Values()[i]).(*Requirement)
-		if req.Name == name {
-			this.Requirements.Remove(req)
+	var tmp []Requirement
+	for _, v := range this.Requirements {
+		if v.Name == name {
+			continue
+		} else {
+			tmp = append(tmp, v)
 		}
 	}
+	this.Requirements = tmp
 }
 
-func (this *KPC)AddConflict(con *Conflict){
-	this.Conflicts.Add(con)
+func (this *KPC)AddConflict(con Conflict){
+	this.Conflicts = append(this.Conflicts, con)
 }
 
 func (this *KPC)GetConflicts() ([]Conflict){
-	var req []Conflict
-	 for _, val := range this.Conflicts.Values() {
-		 req = append(req, val.(Conflict))
-	 }
-
-	return req
+	return this.Conflicts
 }
 
 func (this *KPC)GetConflict(name string) (*Conflict){
-	var con *Conflict
-
-	for i := range this.Conflicts.Values() {
-		con = (this.Conflicts.Values()[i]).(*Conflict)
-		if con.Name == name {
-			return con
+	for _, val := range this.Conflicts {
+		if val.Name == name {
+			return &val
 		}
 	}
 	return nil
 }
 
 func (this *KPC)ConflictSize() (int){
-	return this.Conflicts.Size()
+	return len(this.Conflicts)
 }
 
 func (this *KPC)RejectConflict(name string){
-	var req *Conflict
-
-	for i := range this.Conflicts.Values() {
-		req = (this.Conflicts.Values()[i]).(*Conflict)
-		if req.Name == name {
-			this.Conflicts.Remove(req)
+	var tmp []Conflict
+	for _, v := range this.Conflicts {
+		if v.Name == name {
+			continue
+		} else {
+			tmp = append(tmp, v)
 		}
 	}
+	this.Conflicts = tmp
 }
 
-func (this *KPC)AddAuthor(aut *Author){
-	this.Authors.Add(aut)
+func (this *KPC)AddAuthor(aut Author){
+	this.Authors = append(this.Authors, aut)
 }
 
 func (this *KPC)GetAuthor(name string) (*Author){
-	var req *Author
-
-	for i := range this.Authors.Values() {
-		req = (this.Authors.Values()[i]).(*Author)
-		if req.Name == name {
-			return req
+	for _, val := range this.Authors {
+		if val.Name == name {
+			return &val
 		}
 	}
 	return nil
 }
 
 func (this *KPC)AuthorsSize() (int){
-	return this.Authors.Size()
+	return len(this.Authors)
 }
 
 func (this *KPC)RejectAuthor(name string){
-	var req *Author
-
-	for i := range this.Authors.Values() {
-		req = (this.Authors.Values()[i]).(*Author)
-		if req.Name == name {
-			this.Authors.Remove(req)
+	var tmp []Author
+	for _, v := range this.Authors {
+		if v.Name == name {
+			continue
+		} else {
+			tmp = append(tmp, v)
 		}
 	}
+	this.Authors = tmp
 }
 
-func (this *KPC)AddRepo(repo *Repo) {
+func (this *KPC)AddRepo(repo Repo) {
 	this.Repository = repo
 }
 
 func (this *KPC)GetRepo() (*Repo){
-	return this.Repository
+	return &(this.Repository)
 }
 
 func (this *KPC)GetIssue() (*string){

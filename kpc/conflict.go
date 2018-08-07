@@ -5,16 +5,12 @@
 //
 package kpc
 
-import (
-	"github.com/emirpasic/gods/sets/hashset"
-)
-
 // different projects can contain different conflicts on the given requirements
 //
 // a conflict is targeted with a project name and one or different version of this project
 type Conflict struct {
 	Name     string  `json:"name"`
-	Versions *hashset.Set `json:"version,omitempty"`
+	Versions []string `json:"version"`
 }
 
 // building a conflict information
@@ -28,12 +24,9 @@ type Conflict struct {
 //
 // @return {*Conflict} the conflict information
 func Conflict_Init(name, version string) (*Conflict){
-	m := hashset.New()
-	m.Add(version)
-
 	return &Conflict{
 		Name: name,
-		Versions: m,
+		Versions: []string{version},
 	}
 }
 
@@ -43,14 +36,14 @@ func Conflict_Init(name, version string) (*Conflict){
 //
 // @param {string} version the version to add to the list of conflicts
 func (this *Conflict)AddElement(version string){
-	this.Versions.Add(version)
+	this.Versions = append(this.Versions,version)
 }
 
 // the number of versions for that project that builds into conflicts
 //
 // @return {int} the number of known versions for a conflict
 func (this *Conflict)GetLength() (int) {
-	return this.Versions.Size()
+	return len(this.Versions)
 }
 
 // change a version, because the error is not happen anymore or the version string is wrong
@@ -59,16 +52,15 @@ func (this *Conflict)GetLength() (int) {
 // @param {string} new the replaycement
 //
 // @return {bool} the version is changed
-func (this *Conflict)ChangeVersion(old, new string) (bool){
-	b := this.Versions.Contains(old)
-
-	if b {
-		this.Versions.Remove(old)
-		this.Versions.Add(new)
-		return true
-	} else {
-		return false
+func (this *Conflict)ChangeVersion(old, new_str string) (bool){
+	for idx, val := range this.Versions {
+		if val == old {
+			this.Versions[idx] = new_str
+			return true
+		}
 	}
+
+	return false
 }
 
 // contains the version
@@ -78,7 +70,14 @@ func (this *Conflict)ChangeVersion(old, new string) (bool){
 //
 // @return {bool} true if the version is in the list else false
 func (this *Conflict)ContainsVersion(version string) (bool){
-	return this.Versions.Contains(version)
+
+	for _, val := range this.Versions {
+		if val == version {
+			return true
+		}
+	}
+
+	return false
 }
 
 // get the name of the package that triggers the error
@@ -102,5 +101,15 @@ func (this *Conflict)SetName(name string){
 //
 // @param {string} version the version to delete
 func (this *Conflict)RejectVersion(version string){
-	this.Versions.Remove(version)
+	if len(this.Versions) >= 1 {
+		var tmp []string
+		for _, v := range this.Versions {
+			if v == version {
+				continue
+			} else {
+				tmp = append(tmp, v)
+			}
+		}
+		this.Versions = tmp
+	}
 }
