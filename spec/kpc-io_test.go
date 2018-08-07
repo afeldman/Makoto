@@ -7,7 +7,7 @@ import (
 	. "github.com/afeldman/Makoto/kpc"
 )
 
-const text = `{"kpc_version":"0.0.1","name":"Test-Project","description":"","version":"","url":"","requirements":[{"name":"test","version":"0.1.1"}],"conflicts":[{"name":"test","version":["1.12.31"]}],"author":[],"source":{"type":"git","url":"github"},"issues":"","prefix":"","srcdir":"","typedir":"","includedir":"","constdir":"","formdir":"","dictdir":"","main":"","dict":[],"form":[],"types":[],"includes":[],"consts":[]}`
+const text = `{"kpc_version":"0.0.1","name":"Test-Project","version":"","requirements":[{"name":"test","version":"0.1.1"}],"conflicts":[{"name":"test","version":["1.12.31"]}],"author":[],"source":{"type":"git","url":"github"},"prefix":"","main":""}`
 
 var _ = Describe("KPC", func() {
 	var (

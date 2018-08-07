@@ -11,32 +11,33 @@ type KPC struct {
 
 	/******************** Package information data ********************/
 	Name         string        `json:"name" yaml:"name"`         // project name
-	Description  string        `json:"description" yaml:"description"`  // project discription
+	Description  string        `json:"description,omitempty" yaml:"description,omitempty"`  // project discription
 	Version      string        `json:"version" yaml:"version"`      // project version
-	Homepage     string        `json:"url" yaml:"url"`          // project homepage
-	Requirements []Requirement      `json:"requirements" yaml:"requirements"` // dependnency list
-	Conflicts    []Conflict      `json:"conflicts" yaml:"conflicts"`    // known conflicts
+	Homepage     string        `json:"url,omitempty" yaml:"url,omitempty"`          // project homepage
+	Requirements []Requirement      `json:"requirements,omitempty" yaml:"requirements,omitempty"` // dependnency list
+	Conflicts    []Conflict      `json:"conflicts,omitempty" yaml:"conflicts,omitempty"`    // known conflicts
 	Authors      []Author     `json:"author" yaml:"author"`       // authorname
 	Repository   Repo          `json:"source" yaml:"source"`       // sorce code repository url
-	Issue        string        `json:"issues" yaml:"issues"`       // project issue homepage
+	Issue        string        `json:"issues,omitempty" yaml:"issues,omitempty"`       // project issue homepage
+	Keywords    []string      `json:"keywords,omitempty" yaml:"keywords,omitempty"`       // project issue homepage
 
 	/********************* Package path settings***********************/
 	/*Package path settings*/
 	Prefix     string `json:"prefix" yaml:"prefix"`     // root path where the packge is installed
-	SrcDir     string `json:"srcdir" yaml:"srcdir"`     // installation path to project sourcefiles (*.kl)
-	TypeDir    string `json:"typedir" yaml:"typedir"`    // installation path of project typefiles (*.t.kl)
-	IncludeDir string `json:"includedir" yaml:"includedir"` // installation path to project headerfiles (*.h.kl)
-	ConstDir   string `json:"constdir" yaml:"constdir"`   // installation path of the constant diclaraion files (*.c.kl)
-	FormDir    string `json:"formdir" yaml:"formdir"`    // if the package has a form to display content. the files might be in an directory
-	DictDir    string `json:"dictdir" yaml:"dictdir"`    // dictionaries are available for the
+	SrcDir     string `json:"srcdir,omitempty" yaml:"srcdir,omitempty"`     // installation path to project sourcefiles (*.kl)
+	TypeDir    string `json:"typedir,omitempty" yaml:"typedir,omitempty"`    // installation path of project typefiles (*.t.kl)
+	IncludeDir string `json:"includedir,omitempty" yaml:"includedir,omitempty"` // installation path to project headerfiles (*.h.kl)
+	ConstDir   string `json:"constdir,omitempty" yaml:"constdir,omitempty"`   // installation path of the constant diclaraion files (*.c.kl)
+	FormDir    string `json:"formdir,omitempty" yaml:"formdir,omitempty"`    // if the package has a form to display content. the files might be in an directory
+	DictDir    string `json:"dictdir,omitempty" yaml:"dictdir,omitempty"`    // dictionaries are available for the
 
 	/*************** specific file includes ***************************/
 	Main     string   `json:"main" yaml:"main"`     // the source file to compile
-	Dicts    []string `json:"dict" yaml:"dict"`     // dictionary file
-	Forms    []string `json:"form" yaml:"form"`     // form file
-	Types    []string `json:"types" yaml:"types"`    // the library for
-	Includes []string `json:"includes" yaml:"includes"` // specific header files for comilation
-	Consts   []string `json:"consts" yaml:"consts"`   // the const files of this project
+	Dicts    []string `json:"dict,omitempty" yaml:"dict,omitempty"`     // dictionary file
+	Forms    []string `json:"form,omitempty" yaml:"form,omitempty"`     // form file
+	Types    []string `json:"types,omitempty" yaml:"types,omitempty"`    // the library for
+	Includes []string `json:"includes,omitempty" yaml:"includes,omitempty"` // specific header files for comilation
+	Consts   []string `json:"consts,omitempty" yaml:"consts,omitempty"`   // the const files of this project
 }
 
 func KPC_Init(name string) (*KPC) {
@@ -62,6 +63,7 @@ func KPC_Init(name string) (*KPC) {
 		Forms:        []string{},
 		Types:        []string{},
 		Consts:       []string{},
+		Keywords:     []string{},
 	}
 }
 

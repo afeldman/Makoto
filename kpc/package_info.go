@@ -138,3 +138,20 @@ func (this *KPC)GetIssue() (*string){
 func (this *KPC)SetIssue(issue string) {
 	this.Issue = issue
 }
+
+func (this *KPC)GetKeywords() []string{
+	return this.Keywords
+}
+
+func (this *KPC)ContainKeyword(key string) (bool,string){
+	for _, val := range this.Keywords{
+		if val == key {
+			return true, val
+		}
+	}
+	return false, ""
+}
+
+func (this *KPC)SetKeyword(key string) {
+	this.Keywords = append(this.Keywords, key)
+}
