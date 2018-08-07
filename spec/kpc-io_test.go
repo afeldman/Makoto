@@ -14,12 +14,9 @@ var _ = Describe("KPC", func() {
 		tkpc KPC
 	)
 
-	BeforeEach(func() {
-		tkpc = *KPC_Init("Test-Project")
-	})
-
 	Context("check the KPC io", func(){
 		It("get json", func(){
+			tkpc = *KPC_Init("Test-Project")
 			con := Conflict_Init("test","1.12.31")
 			requirement := Requirement_Init("test")
 			requirement.SetVersion("0.1.1")
@@ -31,9 +28,11 @@ var _ = Describe("KPC", func() {
 			tkpc.AddRequirement(*requirement)
 			Expect( string(tkpc.ToJSON()) ).Should(Equal(text))
 		})
-		//It("from json", func(){
-	///
-	//		Expect( *(ckpc.GetName()) ).Should(Equal("Test-Project"))
-	//	})
+		It("from json", func(){
+			tkpc := *FromJSON([]byte(text))
+			Expect( *(tkpc.GetName()) ).Should(Equal("Test-Project"))
+			Expect( *(tkpc.GetVersion()) ).Should(Equal(""))
+			Expect( *(tkpc.GetRepo().GetType()) ).Should(Equal("git"))
+		})
 	})
 })

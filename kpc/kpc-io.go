@@ -9,13 +9,18 @@ import (
 func (this *KPC) ToJSON() ([]byte){
 	b, err := json.Marshal(this)
 	if err != nil {
-		log.Fatal(err);
+		log.Fatal(err)
 	}
 	return b
 }
 
-func FromJSON(json_str string) *KPC {
+func FromJSON(json_str []byte) *KPC {
 
+	var kpc KPC
+	err := json.Unmarshal(json_str, &kpc)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	return &KPC{}
+	return &kpc
 }
