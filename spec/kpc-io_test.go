@@ -26,10 +26,11 @@ var _ = Describe("KPC", func() {
 
 			tkpc.AddConflict(*con)
 			tkpc.AddRequirement(*requirement)
-			Expect( string(tkpc.ToJSON()) ).Should(Equal(text))
+			_,json_s := tkpc.ToJSON()
+			Expect( string(json_s) ).Should(Equal(text))
 		})
 		It("from json", func(){
-			tkpc := *FromJSON([]byte(text))
+			_, tkpc := FromJSON([]byte(text))
 			Expect( *(tkpc.GetName()) ).Should(Equal("Test-Project"))
 			Expect( *(tkpc.GetVersion()) ).Should(Equal(""))
 			Expect( *(tkpc.GetRepo().GetType()) ).Should(Equal("git"))

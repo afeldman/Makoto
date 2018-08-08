@@ -2,41 +2,40 @@ package kpc
 
 import (
 	"encoding/json"
-	"log"
 	"gopkg.in/yaml.v2"
 )
 
 
-func (this *KPC) ToJSON() ([]byte){
+func (this *KPC) ToJSON() (error,[]byte){
 	b, err := json.Marshal(this)
 	if err != nil {
-		log.Fatal(err)
+		return err, []byte{}
 	}
-	return b
+	return nil, b
 }
 
-func FromJSON(json_str []byte) *KPC {
+func FromJSON(json_str []byte) (error,*KPC) {
 	var kpc KPC
 	err := json.Unmarshal(json_str, &kpc)
 	if err != nil {
-		log.Fatal(err)
+		return err, nil
 	}
-	return &kpc
+	return nil, &kpc
 }
 
-func (this *KPC) ToYAML() ([]byte){
+func (this *KPC) ToYAML() (error, []byte){
 	y, err := yaml.Marshal(this)
 	if err != nil {
-		log.Fatal(err)
+		return err, []byte{}
 	}
-	return y
+	return nil, y
 }
 
-func FromYAML(yml_str []byte) *KPC {
+func FromYAML(yml_str []byte) (error,*KPC) {
 	var kpc KPC
 	err := yaml.Unmarshal(yml_str, &kpc)
 	if err != nil {
-		log.Fatal(err)
+		return err, nil
 	}
-	return &kpc
+	return nil, &kpc
 }
