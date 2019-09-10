@@ -2,13 +2,12 @@ package cmd
 
 import (
 	"log"
+	"os"
 	"path"
 
 	homedir "github.com/atrox/homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-
-	"github.com/afeldman/go-util/env"
 )
 
 var (
@@ -35,7 +34,7 @@ AUTHOR:
 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`,
 	}
 
-	confFile string
+	confFile, filepath string
 )
 
 func init() {
@@ -64,10 +63,11 @@ func initConfig() {
 			log.Fatal(err)
 		}
 
-		confFile = path.Join(home, ".config", "makoto", "makoto.json")
+		filepath = path.Join(home, ".config", "makoto")
+		confFile = "makoto.json"
 
-		viper.AddConfigPath(path.Join(home, ".config", "makoto"))
-		viper.SetConfigName("makoro")
+		viper.AddConfigPath(filepath)
+		viper.SetConfigName("makoto")
 	}
 
 	viper.AutomaticEnv()
@@ -81,8 +81,16 @@ func initConfig() {
 	}
 
 	if len(rfg.RootDir) > 0 {
-		rfg.init(env.GetEnv("KPC_PATH"))
-	}
-	rfg.save(confFile)
 
+		rfg.init(getEnvOrDefault("KPC_PATH", filepath))
+	}
+	rfg.save(filepath, confFile)
+
+}
+
+func getEnvOrDefault(name, or string) string {
+	if value, ok := os.LookupEnv(name); ok {
+		return value
+	}
+	return or
 }

@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	kpc "github.com/afeldman/Makoto/kpc"
+	kpc "github.com/afeldman/kpc"
 )
 
 var contains = &cobra.Command{

@@ -1,35 +1,40 @@
 package cmd
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"log"
+	"os"
+	"path"
 
-	"encoding/json"
-
-	kpc "github.com/afeldman/Makoto/kpc"
+	kpc "github.com/afeldman/kpc"
 )
 
 type MakotoConfig struct {
-	RootDir []string `json:"makoto_root"`
-	Version string   `json:"makoto_version"`
+	RootDir string `json:"kpc_root"`
+	Version string `json:"makoto_version"`
 }
 
 var rfg MakotoConfig
 
-func (r *MakotoConfig) init(makotopath []string) {
+func (r *MakotoConfig) init(makotopath string) {
 	r.RootDir = makotopath
-	r.Version = MAKOTO_VERSION
+	r.Version = MakotoVersion
 
 	kpc.InitKPCs(r.RootDir)
 }
 
-func (r *MakotoConfig) save(path string) {
+func (r *MakotoConfig) save(filepath, filename string) {
 	d, err := json.Marshal(r)
 	if err != nil {
 		log.Fatal("cannot jsonize config")
 	}
 
-	if err := ioutil.WriteFile(path, d, 0640); err != nil {
+	if _, err := os.Stat(filepath); os.IsNotExist(err) {
+		os.Mkdir(filepath, os.ModePerm)
+	}
+
+	if err := ioutil.WriteFile(path.Join(filepath, filename), d, 0640); err != nil {
 		log.Fatal("cannot write configuration into file")
 	}
 }

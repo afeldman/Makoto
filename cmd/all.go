@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	kpc "github.com/afeldman/Makoto/kpc"
+	kpc "github.com/afeldman/kpc"
 	"github.com/spf13/cobra"
 )
 
