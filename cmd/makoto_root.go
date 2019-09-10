@@ -41,7 +41,9 @@ AUTHOR:
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	Makoto.PersistentFlags().StringVar(&confFile, "config", "", "config file (default $HOME/.config/makoto/makoto.yaml)")
+	Makoto.PersistentFlags().StringVar(&confFile, "config",
+		"",
+		"config file (default $HOME/.config/makoto/makoto.json)")
 
 	Makoto.AddCommand(version)
 	Makoto.AddCommand(kpc_cmd)
@@ -62,10 +64,10 @@ func initConfig() {
 			log.Fatal(err)
 		}
 
-		confFile = path.Join(home, ".config", "makoto", "makoto.yaml")
+		confFile = path.Join(home, ".config", "makoto", "makoto.json")
 
-		viper.AddConfigPath(path.Join(home, ".config", "rossum"))
-		viper.SetConfigName("rossum")
+		viper.AddConfigPath(path.Join(home, ".config", "makoto"))
+		viper.SetConfigName("makoro")
 	}
 
 	viper.AutomaticEnv()
@@ -74,7 +76,7 @@ func initConfig() {
 		log.Println(err)
 	} else {
 		if err := viper.Unmarshal(&rfg); err != nil {
-			log.Fatal("unable to decode into the rossum configuration structure, %v", err)
+			log.Fatal("unable to decode into the makoto configuration structure, %v", err)
 		}
 	}
 
