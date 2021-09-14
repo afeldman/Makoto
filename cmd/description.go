@@ -1,10 +1,8 @@
 package cmd
 
 import (
-	"fmt"
 	"log"
 
-	kpc "github.com/afeldman/kpc"
 	"github.com/spf13/cobra"
 )
 
@@ -24,11 +22,5 @@ AUTHOR:
 			log.Fatal("no package in argument")
 		}
 
-		kpg := kpc.GetKPC(args[0])
-		if kpg != nil {
-			fmt.Println(kpg.Description)
-		} else {
-			log.Println("Can not find the requested Package")
-		}
 	},
 }

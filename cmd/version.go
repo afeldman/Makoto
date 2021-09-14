@@ -1,12 +1,9 @@
 package cmd
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/spf13/cobra"
-
-	kpc "github.com/afeldman/kpc"
 )
 
 var pversion = &cobra.Command{
@@ -26,11 +23,11 @@ So please make shure all your packages uses a version.
 			log.Fatal("no package in argument")
 		}
 
-		kpg := kpc.GetKPC(args[0])
+		/*kpg := kpc.GetKPC(args[0])
 		if kpg != nil {
 			fmt.Println(kpg.Version)
 		} else {
 			log.Fatalln("The requested Package is not detecable")
-		}
+		}*/
 	},
 }

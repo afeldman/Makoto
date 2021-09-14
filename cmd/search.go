@@ -4,8 +4,6 @@ import (
 	"log"
 
 	"github.com/spf13/cobra"
-
-	kpc "github.com/afeldman/kpc"
 )
 
 var contains = &cobra.Command{
@@ -29,10 +27,10 @@ AUTHOR:
 			log.Fatal("no package in argument")
 		}
 
-		if !kpc.ContainsPackage(args[0]) {
+		/*if !kpc.ContainsPackage(args[0]) {
 			log.Println("unable to find KPC: ", args[0])
 		} else {
 			log.Println("found KPC: ", args[0])
-		}
+		}*/
 	},
 }

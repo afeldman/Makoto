@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	kpc "github.com/afeldman/kpc"
+	"github.com/afeldman/Makoto/makoto"
 	"github.com/spf13/cobra"
 )
 
@@ -22,6 +22,8 @@ AUTHOR:
 	anton feldmann <anton.feldmann@gmail.com>
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println(kpc.All())
+		for _, kpc := range makoto.All() {
+			fmt.Println(kpc.Name)
+		}
 	},
 }

@@ -1,11 +1,8 @@
 package cmd
 
 import (
-	"encoding/json"
-	"fmt"
 	"log"
 
-	kpc "github.com/afeldman/kpc"
 	"github.com/spf13/cobra"
 )
 
@@ -27,7 +24,7 @@ AUTHOR:
 			log.Fatal("no package in argument")
 		}
 
-		kpg := kpc.GetKPC(args[0])
+		/*kpg := kpc.GetKPC(args[0])
 		if kpg != nil {
 			buff, err := json.Marshal(&kpg.Requirements)
 			if err != nil {
@@ -36,6 +33,6 @@ AUTHOR:
 			fmt.Println(string(buff))
 		} else {
 			log.Fatalln("can not find required package")
-		}
+		}*/
 	},
 }

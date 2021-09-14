@@ -1,13 +1,14 @@
 package main
 
 import (
-	"log"
-
 	"github.com/afeldman/Makoto/cmd"
+
+	log "github.com/sirupsen/logrus"
 )
 
 func main() {
 	if err := cmd.Makoto.Execute(); err != nil {
-		log.Fatal(err)
+		log.Fatalln(err)
 	}
+
 }

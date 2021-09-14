@@ -1,13 +1,11 @@
 package cmd
 
 import (
-	"log"
-	"os"
-	"path"
+	"strings"
 
-	homedir "github.com/atrox/homedir"
+	"github.com/afeldman/Makoto/makoto"
+
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 var (
@@ -34,7 +32,7 @@ AUTHOR:
 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`,
 	}
 
-	confFile, filepath string
+	confFile string
 )
 
 func init() {
@@ -47,6 +45,8 @@ func init() {
 	Makoto.AddCommand(version)
 	Makoto.AddCommand(kpc_cmd)
 	Makoto.AddCommand(all)
+	Makoto.AddCommand(authors)
+	Makoto.AddCommand(conflicts)
 }
 
 func Execute() {
@@ -54,43 +54,14 @@ func Execute() {
 }
 
 func initConfig() {
-	if confFile != "" {
-		viper.SetConfigFile(confFile)
+
+	var makoto_ makoto.Makoto
+	if len(strings.TrimSpace(confFile)) == 0 {
+		makoto_ = *makoto.Init()
 	} else {
-
-		home, err := homedir.Dir()
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		filepath = path.Join(home, ".config", "makoto")
-		confFile = "makoto.json"
-
-		viper.AddConfigPath(filepath)
-		viper.SetConfigName("makoto")
+		makoto_ = *makoto.Config(confFile)
 	}
+	makoto_.Store()
+	makoto_.DBInit()
 
-	viper.AutomaticEnv()
-
-	if err := viper.ReadInConfig(); err != nil {
-		log.Println(err)
-	} else {
-		if err := viper.Unmarshal(&rfg); err != nil {
-			log.Fatal("unable to decode into the makoto configuration structure, %v", err)
-		}
-	}
-
-	if len(rfg.RootDir) > 0 {
-
-		rfg.init(getEnvOrDefault("KPC_PATH", filepath))
-	}
-	rfg.save(filepath, confFile)
-
-}
-
-func getEnvOrDefault(name, or string) string {
-	if value, ok := os.LookupEnv(name); ok {
-		return value
-	}
-	return or
 }

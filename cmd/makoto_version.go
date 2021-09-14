@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const MakotoVersion = "0.1.0"
+const MakotoVersion = "0.2.0"
 
 var version = &cobra.Command{
 	Use:   "version",

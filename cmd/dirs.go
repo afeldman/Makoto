@@ -1,11 +1,8 @@
 package cmd
 
 import (
-	"fmt"
 	"log"
-	"path"
 
-	kpc "github.com/afeldman/kpc"
 	"github.com/spf13/cobra"
 )
 
@@ -26,12 +23,12 @@ AUTHOR:
 				log.Fatal("no package in argument")
 			}
 
-			kpg := kpc.GetKPC(args[0])
+			/*kpg := kpc.GetKPC(args[0])
 			if kpg != nil {
 				fmt.Println(fmt.Sprintf("-I=%s", path.Join(kpg.Prefix, kpg.SrcDir)))
 			} else {
 				log.Fatalln("The requested Package is not detectable")
-			}
+			}*/
 		},
 	}
 
@@ -56,12 +53,12 @@ AUTHOR:
 				log.Fatal("no package in argument")
 			}
 
-			kpg := kpc.GetKPC(args[0])
+			/*kpg := kpc.GetKPC(args[0])
 			if kpg != nil {
 				fmt.Println(fmt.Sprintf("-I=%s", path.Join(kpg.Prefix, kpg.ConstDir)))
 			} else {
 				log.Fatalln("The requested package can not be found")
-			}
+			}*/
 		},
 	}
 
@@ -82,12 +79,12 @@ AUTHOR:
 				log.Fatal("no package in argument")
 			}
 
-			kpg := kpc.GetKPC(args[0])
+			/*kpg := kpc.GetKPC(args[0])
 			if kpg != nil {
 				fmt.Println(fmt.Sprintf("-I=%s", path.Join(kpg.Prefix, kpg.IncludeDir)))
 			} else {
 				log.Fatalln("The requested package can not be found")
-			}
+			}*/
 
 		},
 	}
@@ -109,12 +106,12 @@ AUTHOR:
 				log.Fatal("no package in argument")
 			}
 
-			kpg := kpc.GetKPC(args[0])
-			if kpg != nil {
-				fmt.Println(fmt.Sprintf("-I=%s", path.Join(kpg.Prefix, kpg.TypeDir)))
-			} else {
-				log.Fatalln("The requested package can not be found")
-			}
+			/*			kpg := kpc.GetKPC(args[0])
+						if kpg != nil {
+							fmt.Println(fmt.Sprintf("-I=%s", path.Join(kpg.Prefix, kpg.TypeDir)))
+						} else {
+							log.Fatalln("The requested package can not be found")
+						}*/
 		},
 	}
 )

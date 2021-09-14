@@ -1,11 +1,11 @@
 package cmd
 
 import (
-	"encoding/json"
 	"fmt"
-	"log"
 
-	kpc "github.com/afeldman/kpc"
+	"github.com/afeldman/Makoto/makoto"
+	log "github.com/sirupsen/logrus"
+
 	"github.com/spf13/cobra"
 )
 
@@ -22,19 +22,21 @@ AUTHOR:
 	anton feldmann <anton.feldmann@gmail.com>
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) != 1 {
-			log.Fatal("no package in argument")
+		if len(args) > 2 || len(args) == 0 {
+			log.Fatalln("usage: makoto author pk_name pk_version")
 		}
 
-		kpg := kpc.GetKPC(args[0])
-		if kpg != nil {
-			author, err := json.Marshal(&(kpg.Authors))
-			if err != nil {
-				log.Fatalln(err)
-			}
-			fmt.Println(string(author))
+		var kpc *makoto.KPC_DB_Entry
+		if len(args) < 2 {
+			kpc = makoto.Latest(args[0])
 		} else {
-			log.Fatalln("can not find the requested package")
+			kpc = makoto.Get(args[0], args[1])
+		}
+
+		if kpc != nil {
+			for _, author := range kpc.KPC.Authors {
+				fmt.Println(author.Name + " " + author.Email)
+			}
 		}
 	},
 }

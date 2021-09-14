@@ -1,12 +1,9 @@
 package cmd
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/spf13/cobra"
-
-	kpc "github.com/afeldman/kpc"
 )
 
 var url = &cobra.Command{
@@ -24,11 +21,11 @@ AUTHOR:
 			log.Fatal("no package in argument")
 		}
 
-		kpg := kpc.GetKPC(args[0])
+		/*kpg := kpc.GetKPC(args[0])
 		if kpg != nil {
 			fmt.Print(kpg.Homepage)
 		} else {
 			log.Fatalln("can not find the requested package")
-		}
+		}*/
 	},
 }

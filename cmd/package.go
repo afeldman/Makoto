@@ -14,7 +14,7 @@ AUTHOR:
 `,
 }
 
-func init(){
+/*func init(){
      kpc_cmd.AddCommand(authors)
      kpc_cmd.AddCommand(discription)
      kpc_cmd.AddCommand(pversion)
@@ -34,4 +34,4 @@ func init(){
      kpc_cmd.AddCommand(i)
      kpc_cmd.AddCommand(l)
      kpc_cmd.AddCommand(t)
-}
+}*/
