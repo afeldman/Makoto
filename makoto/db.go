@@ -56,7 +56,16 @@ func Append(kpc *kpc.KPC) error {
 		log.Panic("Database not init")
 	}
 
-	entry := KPC_DB_Entry{Name: *kpc.GetName() + "@" + *kpc.GetVersion(), KPC: *kpc}
+	name := *kpc.GetName()
+	version := *kpc.GetVersion()
+
+	entry := KPC_DB_Entry{Name: name + "@" + version, KPC: *kpc}
+
+	kpc_ := Get(name, version)
+	if kpc_ != nil {
+		return nil
+	}
+
 	if err := instance.DB.Save(&entry); err != nil {
 		return fmt.Errorf("could not save KPC, %v", err)
 	}

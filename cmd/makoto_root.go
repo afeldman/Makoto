@@ -45,8 +45,6 @@ func init() {
 	Makoto.AddCommand(version)
 	Makoto.AddCommand(kpc_cmd)
 	Makoto.AddCommand(all)
-	Makoto.AddCommand(authors)
-	Makoto.AddCommand(conflicts)
 }
 
 func Execute() {

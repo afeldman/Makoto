@@ -1,13 +1,15 @@
 package cmd
 
 import (
+	"fmt"
 	"log"
 
+	"github.com/afeldman/Makoto/makoto"
 	"github.com/spf13/cobra"
 )
 
 var requirements = &cobra.Command{
-	Use:   "requirements [KPC PACKAGE NAME]",
+	Use:   "req [KPC PACKAGE NAME]",
 	Short: "list package requirements",
 	Long: `
 As imagne packages can need requirements. To have a list of
@@ -20,19 +22,21 @@ AUTHOR:
 	Anton Feldmann <anton.feldmann@gmail.com>
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) != 1 {
-			log.Fatal("no package in argument")
+		if len(args) > 2 || len(args) == 0 {
+			log.Fatal("usage: Makoto description pk_name pk_version")
 		}
 
-		/*kpg := kpc.GetKPC(args[0])
-		if kpg != nil {
-			buff, err := json.Marshal(&kpg.Requirements)
-			if err != nil {
-				log.Fatalln(err)
-			}
-			fmt.Println(string(buff))
+		var kpc *makoto.KPC_DB_Entry
+		if len(args) < 2 {
+			kpc = makoto.Latest(args[0])
 		} else {
-			log.Fatalln("can not find required package")
-		}*/
+			kpc = makoto.Get(args[0], args[1])
+		}
+
+		if kpc != nil {
+			for _, req := range kpc.KPC.Requirements {
+				fmt.Println(req.Name + "@" + req.Version)
+			}
+		}
 	},
 }

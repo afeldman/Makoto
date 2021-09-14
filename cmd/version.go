@@ -1,8 +1,10 @@
 package cmd
 
 import (
+	"fmt"
 	"log"
 
+	"github.com/afeldman/Makoto/makoto"
 	"github.com/spf13/cobra"
 )
 
@@ -19,15 +21,19 @@ that does not mean, that my Software runs with package version 0.4.1
 So please make shure all your packages uses a version.
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) != 1 {
-			log.Fatal("no package in argument")
+		if len(args) > 2 || len(args) == 0 {
+			log.Fatal("usage: Makoto description pk_name pk_version")
 		}
 
-		/*kpg := kpc.GetKPC(args[0])
-		if kpg != nil {
-			fmt.Println(kpg.Version)
+		var kpc *makoto.KPC_DB_Entry
+		if len(args) < 2 {
+			kpc = makoto.Latest(args[0])
 		} else {
-			log.Fatalln("The requested Package is not detecable")
-		}*/
+			kpc = makoto.Get(args[0], args[1])
+		}
+
+		if kpc != nil {
+			fmt.Println(kpc.KPC.Version)
+		}
 	},
 }

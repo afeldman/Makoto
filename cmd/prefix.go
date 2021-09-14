@@ -1,8 +1,10 @@
 package cmd
 
 import (
+	"fmt"
 	"log"
 
+	"github.com/afeldman/Makoto/makoto"
 	"github.com/spf13/cobra"
 )
 
@@ -22,15 +24,19 @@ AUTHOR:
 	Anton Feldmann <anton.feldmann@gmail.com>
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) != 1 {
-			log.Fatal("no package in argument")
+		if len(args) > 2 || len(args) == 0 {
+			log.Fatal("usage: Makoto description pk_name pk_version")
 		}
 
-		/*kpg := kpc.GetKPC(args[0])
-		if kpg != nil {
-			fmt.Println(kpg.Prefix)
+		var kpc *makoto.KPC_DB_Entry
+		if len(args) < 2 {
+			kpc = makoto.Latest(args[0])
 		} else {
-			log.Fatalln("Can not find the required package")
-		}*/
+			kpc = makoto.Get(args[0], args[1])
+		}
+
+		if kpc != nil {
+			fmt.Print(kpc.KPC.Prefix)
+		}
 	},
 }
