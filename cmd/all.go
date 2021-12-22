@@ -1,3 +1,7 @@
+// Copyright Anton Feldmann
+//
+// This structure is used to inform the tools about the structure of the project
+//
 package cmd
 
 import (

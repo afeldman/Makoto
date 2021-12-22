@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"github.com/afeldman/Makoto/kpc"
 
 	"github.com/afeldman/Makoto/makoto"
 	"github.com/spf13/cobra"

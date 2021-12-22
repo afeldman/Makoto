@@ -27,6 +27,8 @@ func Init() *Makoto {
 		log.Panic(err)
 	}
 
+	log.Debugln("the makoto config files are in " + ConfigPath)
+
 	return &Makoto{
 		ConfigPath: ConfigPath,
 		ConfigFile: filepath.Join(ConfigPath, "makoto.toml"),

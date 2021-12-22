@@ -13,8 +13,10 @@ import (
 )
 
 type KPC_DB_Entry struct {
-	Name string  `storm:"id"` // primary key with auto increment
-	KPC  kpc.KPC // name is combined with version
+	Name    string `storm:"name"`
+	Hash    string `storm:"id"`
+	Version string `storm:"version"`
+	KPC     string `storm:"karel"`
 }
 
 type KPC_DB struct {
@@ -24,6 +26,7 @@ type KPC_DB struct {
 
 var (
 	instance *KPC_DB
+	lock     = &sync.Mutex{}
 	once     sync.Once
 )
 
@@ -60,7 +63,7 @@ func Append(kpc *kpc.KPC) error {
 	name := *kpc.GetName()
 	version := *kpc.GetVersion()
 
-	entry := KPC_DB_Entry{Name: name + "@" + version, KPC: *kpc}
+	entry := KPC_DB_Entry{Name: name + "@" + version, Version: *kpc.GetVersion(), Hash: kpc.GetMD5Hash(kpc)}
 
 	kpc_ := Get(name, version)
 	if kpc_ != nil {

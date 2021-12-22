@@ -7,6 +7,9 @@ package kpc
 
 import (
 	"bytes"
+	"crypto/md5"
+	"encoding/hex"
+	"encoding/json"
 	"io/ioutil"
 	"os"
 
@@ -56,4 +59,14 @@ func ReadKPCFile(filepath string) *KPC {
 	byteValue, _ := ioutil.ReadAll(input_file)
 	// return the kpc structure
 	return From(byteValue)
+}
+
+func GetMD5Hash(kpc *KPC) string {
+	out, err := json.Marshal(kpc)
+	if err != nil {
+		panic(err)
+	}
+
+	hash := md5.Sum([]byte(out))
+	return hex.EncodeToString(hash[:])
 }
