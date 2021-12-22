@@ -22,5 +22,4 @@ func init() {
 	kpc_cmd.AddCommand(requirements)
 	kpc_cmd.AddCommand(conflicts)
 	kpc_cmd.AddCommand(prefix)
-
 }
