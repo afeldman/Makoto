@@ -7,6 +7,7 @@ import (
 
 	"github.com/afeldman/Makoto/kpc"
 	"github.com/asdine/storm/v3"
+
 	version "github.com/mcuadros/go-version"
 	log "github.com/sirupsen/logrus"
 )
