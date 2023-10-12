@@ -32,13 +32,13 @@ func InitAuthor(name string) *Author {
 		Email: ""}
 }
 
-// SetEmail change the email address
+// SetAuthorEmail change the email address
 // each author has a empty email address
 //
 // this function is pagt of the Author structure
 //
 // @param {string} email. The email address for the author
-func (auth *Author) SetEmail(email string) {
+func (auth *Author) SetAuthorEmail(email string) {
 	if govalidator.IsEmail(email) {
 		auth.Email = email
 	} else {
@@ -46,33 +46,33 @@ func (auth *Author) SetEmail(email string) {
 	}
 }
 
-// GetEmail returns the authors email
+// GetAuthorEmail returns the authors email
 // get the author's email
 //
 // this function is pagt of the Author structure
 //
 // @return {*string} the Email address
-func (auth *Author) GetEmail() *string {
+func (auth *Author) GetAuthorEmail() *string {
 	return &auth.Email
 }
 
-// SetName changes the name of the author
+// SetAuthorName changes the name of the author
 // each author has a name. Maybe if the name was written wrong.
 // This method change the name
 //
 // this function is pagt of the Author structure
 //
 // @param {string} name. the new name for the author
-func (auth *Author) SetName(name string) {
+func (auth *Author) SetAuthorName(name string) {
 	auth.Name = name
 }
 
-// GetName of the author
+// GetAuthorName of the author
 // get the author's name
 //
 // this function is pagt of the Author structure
 //
 // @return {*string} the Author's name
-func (auth *Author) GetName() *string {
+func (auth *Author) GetAuthorName() *string {
 	return &(auth.Name)
 }

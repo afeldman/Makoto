@@ -11,7 +11,7 @@ func TestInitAuthor(t *testing.T) {
 
 func TestSetEmail(t *testing.T) {
 	author := InitAuthor("tester")
-	author.SetEmail("tester@example.com")
+	author.SetAuthorEmail("tester@example.com")
 	if author.Email != "tester@example.com" {
 		t.Errorf("email address %s is wrong", author.Email)
 	}
@@ -19,15 +19,15 @@ func TestSetEmail(t *testing.T) {
 
 func TestGetEmail(t *testing.T) {
 	author := InitAuthor("tester")
-	author.SetEmail("tester@example.com")
-	if *author.GetEmail() != "tester@example.com" {
+	author.SetAuthorEmail("tester@example.com")
+	if *author.GetAuthorEmail() != "tester@example.com" {
 		t.Errorf("email address %s is wrong", author.Email)
 	}
 }
 
 func TestSetName(t *testing.T) {
 	author := InitAuthor("tester")
-	author.SetName("not tester")
+	author.SetAuthorName("not tester")
 	if author.Name != "not tester" {
 		t.Errorf("authors name %s did not change", author.Name)
 	}
@@ -35,7 +35,7 @@ func TestSetName(t *testing.T) {
 
 func TestGetName(t *testing.T) {
 	author := InitAuthor("tester")
-	if *author.GetName() != "tester" {
+	if *author.GetAuthorName() != "tester" {
 		t.Errorf("the name %s is wrong", author.Name)
 	}
 }

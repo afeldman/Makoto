@@ -139,7 +139,7 @@ func (kpc_obj *KPC) GetAuthor(authorsName string) (*Author, error) {
 //
 // @param (Author) an author struct
 func (kpc_obj *KPC) AddAuthor(aut Author) {
-	_, err := kpc_obj.GetAuthor(*aut.GetName())
+	_, err := kpc_obj.GetAuthor(*aut.GetAuthorName())
 	if err != nil {
 		// author do not exists in list
 		kpc_obj.Authors = append(kpc_obj.Authors, aut)

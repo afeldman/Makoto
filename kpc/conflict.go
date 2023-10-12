@@ -92,7 +92,7 @@ func (con *Conflict) ContainsVersion(version string) bool {
 // GetName get the name of the package that triggers the error
 //
 // @return {*string} the name of the project
-func (con *Conflict) GetName() *string {
+func (con *Conflict) GetConflictName() *string {
 	return &con.Name
 }
 
