@@ -1,8 +1,7 @@
 package cmd
 
 import (
-	"fmt"
-
+	
 	"github.com/afeldman/Makoto/makoto"
 	log "github.com/sirupsen/logrus"
 
@@ -34,9 +33,9 @@ AUTHOR:
 		}
 
 		if kpc != nil {
-			for _, author := range kpc.KPC.Authors {
+			/*for _, author := range kpc.Authors {
 				fmt.Println(author.Name + " " + author.Email)
-			}
+			}*/
 		}
 	},
 }

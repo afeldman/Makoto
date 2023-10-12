@@ -1,11 +1,7 @@
 package cmd
 
 import (
-	"fmt"
 	"log"
-	"github.com/afeldman/Makoto/kpc"
-
-	"github.com/afeldman/Makoto/makoto"
 	"github.com/spf13/cobra"
 )
 
@@ -27,7 +23,7 @@ AUTHOR:
 			log.Fatal("usage: Makoto description pk_name pk_version")
 		}
 
-		var kpc *makoto.KPC_DB_Entry
+		/*var kpc *makoto.KPC_DB_Entry
 		if len(args) < 2 {
 			kpc = makoto.Latest(args[0])
 		} else {
@@ -38,6 +34,6 @@ AUTHOR:
 			for _, req := range kpc.KPC.Requirements {
 				fmt.Println(req.Name + "@" + req.Version)
 			}
-		}
+		}*/
 	},
 }

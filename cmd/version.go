@@ -1,10 +1,8 @@
 package cmd
 
 import (
-	"fmt"
 	"log"
 
-	"github.com/afeldman/Makoto/makoto"
 	"github.com/spf13/cobra"
 )
 
@@ -25,7 +23,7 @@ So please make shure all your packages uses a version.
 			log.Fatal("usage: Makoto description pk_name pk_version")
 		}
 
-		var kpc *makoto.KPC_DB_Entry
+		/*var kpc *makoto.KPC_DB_Entry
 		if len(args) < 2 {
 			kpc = makoto.Latest(args[0])
 		} else {
@@ -34,6 +32,6 @@ So please make shure all your packages uses a version.
 
 		if kpc != nil {
 			fmt.Println(kpc.KPC.Version)
-		}
+		}*/
 	},
 }

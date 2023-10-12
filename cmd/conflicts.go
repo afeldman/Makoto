@@ -1,9 +1,7 @@
 package cmd
 
 import (
-	"fmt"
 	"log"
-	"strings"
 
 	"github.com/afeldman/Makoto/makoto"
 	"github.com/spf13/cobra"
@@ -36,9 +34,9 @@ AUTHOR:
 		}
 
 		if kpc != nil {
-			for _, conflict := range kpc.KPC.Conflicts {
+			/*for _, conflict := range kpc.KPC.Conflicts {
 				fmt.Print(conflict.Name + "@" + strings.Join(conflict.Versions, ","))
-			}
+			}*/
 		}
 
 	},

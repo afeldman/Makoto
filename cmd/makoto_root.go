@@ -1,9 +1,7 @@
 package cmd
 
 import (
-	"strings"
-
-	"github.com/afeldman/Makoto/makoto"
+	//"github.com/afeldman/Makoto/makoto"
 
 	"github.com/spf13/cobra"
 )
@@ -40,7 +38,7 @@ func init() {
 
 	Makoto.PersistentFlags().StringVar(&confFile, "config",
 		"",
-		"config file (default $HOME/.config/makoto/makoto.json)")
+		"config file (default $HOME/.config/makoto/makoto.toml)")
 
 	Makoto.AddCommand(version)
 	Makoto.AddCommand(kpc_cmd)
@@ -53,13 +51,13 @@ func Execute() {
 
 func initConfig() {
 
-	var makoto_ makoto.Makoto
+	/*var makoto_ makoto.Makoto
 	if len(strings.TrimSpace(confFile)) == 0 {
 		makoto_ = *makoto.Init()
 	} else {
 		makoto_ = *makoto.Config(confFile)
 	}
 	makoto_.Store()
-	makoto_.DBInit()
+	makoto_.DBInit()*/
 
 }

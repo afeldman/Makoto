@@ -1,9 +1,9 @@
+package cmd
+
 // Copyright Anton Feldmann
 //
 // This structure is used to inform the tools about the structure of the project
 //
-package cmd
-
 import (
 	"fmt"
 
@@ -15,7 +15,7 @@ var all = &cobra.Command{
 	Use:   "all",
 	Short: "List all available packages",
 	Long: `
-Makoto works an a list of central yaml files.
+Makoto works an a list of central toml files.
 All files in this central foulder how have the ending kcp
 and the name tag can be displayed.
 Make shure your kpc file contains all information.

@@ -1,8 +1,9 @@
+package kpc
+
 // Copyright Anton Feldmann
 //
 // KPC is a Karel package management structure.
 // This structure is used to inform the tools about the structure of the project
-package kpc
 
 // get the desctiption
 func (kpc_obj *KPC) GetDescription() *string {
