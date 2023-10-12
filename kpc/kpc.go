@@ -6,6 +6,9 @@ package kpc
 
 import "fmt"
 
+// KpcVersion changed the KPC Version. now we use TOML
+const KpcVersion = "0.2.0"
+
 // kpc datastructurwe
 type KPC struct {
 	/********************             KPC          ********************/

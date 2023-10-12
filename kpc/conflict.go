@@ -40,10 +40,12 @@ func InitConflict(name, version string) *Conflict {
 //
 // @param {string} version the version to add to the list of conflicts
 func (con *Conflict) AddVersion(version string) {
+
 	if !con.ContainsVersion(version) {
 		con.Versions = append(con.Versions, version)
+	} else {
+		log.Debugf("version %s alredy added", version)
 	}
-	log.Infof("version %s alredy added", version)
 }
 
 // NumberOfConflicts the number of versions for that project that builds into conflicts
@@ -59,14 +61,13 @@ func (con *Conflict) NumberOfConflicts() int {
 // @param {string} new the replaycement
 //
 // @return {bool} the version is changed
-func (con *Conflict) ChangeVersion(old, newstr string) bool {
+func (con *Conflict) ChangeVersion(old, newversion string) bool {
 	for idx, val := range con.Versions {
 		if val == old {
-			con.Versions[idx] = newstr
+			con.Versions[idx] = newversion
 			return true
 		}
 	}
-
 	return false
 }
 
@@ -77,8 +78,9 @@ func (con *Conflict) ChangeVersion(old, newstr string) bool {
 //
 // @return {bool} true if the version is in the list else false
 func (con *Conflict) ContainsVersion(version string) bool {
-
+	log.Debugf("search for version %s", version)
 	for _, val := range con.Versions {
+		log.Debugf("got %s from list", val)
 		if val == version {
 			return true
 		}
