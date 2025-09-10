@@ -7,7 +7,7 @@ import (
 )
 
 // Makoto CLI version (semantic versioning)
-const MakotoVersion = "0.3.1"
+const MakotoVersion = "0.3.2"
 
 var version = &cobra.Command{
 	Use:   "version",
