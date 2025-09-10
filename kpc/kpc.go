@@ -22,7 +22,7 @@ type KPC struct {
 	Requirements []Requirement `toml:"requirements,omitempty"` // dependnency list
 	Conflicts    []Conflict    `toml:"conflicts,omitempty"`    // known conflicts
 	Authors      []Author      `toml:"authors,omitempty"`      // authorname
-	Repository   Repository    `toml:"source,omitempty"`       // sorce code repository url
+	Repository   Repository    `toml:"source,omitempty"`       // source code repository url
 	Issue        string        `toml:"issues,omitempty"`       // project issue homepage
 	Keywords     []string      `toml:"keywords,omitempty"`     // project issue homepage
 

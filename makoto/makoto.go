@@ -3,7 +3,7 @@ package makoto
 
 import (
 	"bytes"
-	"io/ioutil"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
@@ -14,7 +14,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// makoto config file will be stored in the app config folder  
+// makoto config file will be stored in the app config folder
 type Makoto struct {
 	ConfigPath string `toml:"configpath"`
 	ConfigFile string `toml:"config"`
@@ -63,7 +63,7 @@ func ConfigMakoto(config_path string) *Makoto {
 	defer tomlfile.Close()
 
 	// read the file as whole
-	tomlData, _ := ioutil.ReadAll(tomlfile)
+	tomlData, _ := io.ReadAll(tomlfile)
 
 	// build the Makoto object
 	var makoto Makoto

@@ -1,9 +1,7 @@
 // Copyright Anton Feldmann
 //
 // store the downloaded kpc package into a local catabase
-//
 package makoto
-
 
 // load the packages
 import (
@@ -13,6 +11,7 @@ import (
 
 	kpc "github.com/afeldman/Makoto/kpc"
 	"github.com/asdine/storm/v3"
+	q "github.com/asdine/storm/v3/q"
 
 	version "github.com/mcuadros/go-version"
 	log "github.com/sirupsen/logrus"
@@ -21,30 +20,29 @@ import (
 // the database entry is set by name, the id (the hash of the package,
 // the package version and the KPC)
 type KPC_DB_Entry struct {
-	Name    string `storm:"name"`
-	Hash    string `storm:"id"`
-	Version string `storm:"version"`
-	KPC     string `storm:"kpc"`
+	Name    string  `storm:"index"` // Paketname
+	Version string  `storm:"index"` // Semver
+	Hash    string  `storm:"id"`    // Eindeutige ID
+	KPC     kpc.KPC `storm:"inline"`
 }
 
 // KPC Database information
 type KPC_DB struct {
-     // database
-     DB      *storm.DB
-     // is the database connected
-     DB_Open bool
+	// database
+	DB *storm.DB
+	// is the database connected
+	DB_Open bool
 }
 
 // package variable
 var (
 	instance *KPC_DB
-	lock     = &sync.Mutex{}
 	once     sync.Once
 )
 
 // Open Database
 func (makoto *Makoto) DBInit() *KPC_DB {
-     // make singleton
+	// make singleton
 	once.Do(func() {
 		// open the database
 		sdb, err := storm.Open(makoto.KPC_DB)
@@ -65,9 +63,9 @@ func (makoto *Makoto) DBInit() *KPC_DB {
 
 // close the database
 func Close() {
-     // if the database is open then close the database
+	// if the database is open then close the database
 	if instance.DB_Open {
-	   //close the database
+		//close the database
 		instance.DB.Close()
 		// set the open flag to false
 		instance.DB_Open = false
@@ -75,48 +73,39 @@ func Close() {
 }
 
 // append a kpc to the database
-func Append(kpc_s *kpc.KPC) error {
-
-     // is the database conected
+func Append(k *kpc.KPC) error {
 	if !instance.DB_Open {
-		log.Panic("Database not init")
+		return fmt.Errorf("database not initialized")
 	}
 
-	// geht the kpc name
-	name := *kpc_s.GetName()
-	// get the kpc version
-	version := *kpc_s.GetVersion()
-
-	hash, kpc_err := kpc.GetMD5Hash(kpc_s)
-	if kpc_err != nil {
-		return kpc_err
+	name := *k.GetName()
+	version := *k.GetVersion()
+	hash, err := kpc.GetMD5Hash(k)
+	if err != nil {
+		return err
 	}
 
-	// create the entry
-	entry := KPC_DB_Entry{
-	      Name: name + "@" + version,
-	      Version: *kpc_s.GetVersion(),
-	      Hash: *hash}
-
-	// if the entry exists finish
-	kpc_ := Get(name, version)
-	if kpc_ != nil {
+	// Prüfen ob schon vorhanden
+	if existing := Get(name, version); existing != nil {
 		return nil
 	}
 
-	// safe the new entry into the database
-	if err := instance.DB.Save(&entry); err != nil {
-	   // return the error, the kpc cound not stored
-	   return fmt.Errorf("could not save KPC, %v", err)
+	entry := KPC_DB_Entry{
+		Name:    name,
+		Version: version,
+		Hash:    *hash,
+		KPC:     *k,
 	}
 
-	// return nil
+	if err := instance.DB.Save(&entry); err != nil {
+		return fmt.Errorf("could not save KPC: %w", err)
+	}
 	return nil
 }
 
 // update the entry
 func Update(filepath string) {
-     // kpc file to storm database
+	// kpc file to storm database
 	kpc, err := kpc.ReadKPCFile(filepath)
 	if err != nil {
 		log.Error(err)
@@ -128,18 +117,18 @@ func Update(filepath string) {
 // get the kpc entry from database
 func Get(name, version string) *KPC_DB_Entry {
 	var entry KPC_DB_Entry
-	// is the kpc in the database ?
-	if err := instance.DB.One("Name", name+"@"+version, &entry); err != nil {
-		log.Debug(err)
+	if err := instance.DB.One("Name", name, &entry); err != nil {
 		return nil
 	}
-	// return entry
+	if entry.Version != version {
+		return nil
+	}
 	return &entry
 }
 
 // compare versions of kpc package
 func Compare(name, compair string) *KPC_DB_Entry {
-     // last entry
+	// last entry
 	var latest_kpc KPC_DB_Entry
 
 	// last kpc entry package version
@@ -168,14 +157,14 @@ func Compare(name, compair string) *KPC_DB_Entry {
 
 // latest version of kpc
 func Latest(name string) *KPC_DB_Entry {
-     // kpc entry in database
+	// kpc entry in database
 	var latest_kpc KPC_DB_Entry
 
 	var latest_version string = "0.0.0"
 
 	// loop over all entrys of a given kpc name
 	for _, kpc_e := range All() {
-	    // next if name is not the entry (TODO: select direct in database)
+		// next if name is not the entry (TODO: select direct in database)
 		if name != kpc_e.Name {
 			continue
 		}
@@ -205,4 +194,41 @@ func All() []KPC_DB_Entry {
 		log.Debugln(kpc)
 	}
 	return kpcs
+}
+
+// Reject entfernt einen Eintrag aus der DB
+func Reject(name, version string) error {
+	if !instance.DB_Open {
+		return fmt.Errorf("database not initialized")
+	}
+
+	var entry KPC_DB_Entry
+	err := instance.DB.Select(
+		q.And(
+			q.Eq("Name", name),
+			q.Eq("Version", version),
+		),
+	).First(&entry)
+	if err != nil {
+		return fmt.Errorf("package %s@%s not found", name, version)
+	}
+
+	if err := instance.DB.DeleteStruct(&entry); err != nil {
+		return fmt.Errorf("could not delete %s@%s: %w", name, version, err)
+	}
+
+	return nil
+}
+
+func RejectByHash(hash string) error {
+	if !instance.DB_Open {
+		return fmt.Errorf("database not initialized")
+	}
+
+	var entry KPC_DB_Entry
+	if err := instance.DB.One("Hash", hash, &entry); err != nil {
+		return fmt.Errorf("package with hash %s not found", hash)
+	}
+
+	return instance.DB.DeleteStruct(&entry)
 }

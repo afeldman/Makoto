@@ -1,38 +1,42 @@
 package cmd
 
 import (
-	"log"
+	"fmt"
 
-	//"github.com/afeldman/Makoto/makoto"
+	"github.com/afeldman/Makoto/makoto"
 	"github.com/spf13/cobra"
 )
 
-var discription = &cobra.Command{
-	Use:   "desc [KPC PACKAGE NAME]",
-	Short: "package description",
-	Long: `
-Each package should have a discription that indicats
-to the possible user, if the package are usable for
-his or her programming needs.
+var description = &cobra.Command{
+	Use:   "desc [KPC PACKAGE NAME] [VERSION]",
+	Short: "Show package description",
+	Long: `Each package should have a description that indicates
+to the user whether the package is usable for their programming needs.
 
-AUTHOR:
-	Anton Feldmann <anton.feldmann@gmail.com>
+Author:
+  Anton Feldmann <anton.feldmann@gmail.com>
 `,
-	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) > 2 || len(args) == 0 {
-			log.Fatal("usage: Makoto description pk_name pk_version")
+	RunE: func(cmd *cobra.Command, args []string) error {
+		if len(args) < 1 || len(args) > 2 {
+			return cmd.Usage()
 		}
 
-		/*var kpc *makoto.KPC_DB_Entry
-		if len(args) < 2 {
+		var kpc *makoto.KPC_DB_Entry
+		if len(args) == 1 {
 			kpc = makoto.Latest(args[0])
 		} else {
 			kpc = makoto.Get(args[0], args[1])
 		}
 
 		if kpc != nil {
-			fmt.Print(kpc.KPC.Description)
-		}*/
-
+			fmt.Println(*kpc.KPC.GetDescription())
+		} else {
+			fmt.Println("package not found")
+		}
+		return nil
 	},
+}
+
+func init() {
+	kpc_cmd.AddCommand(description)
 }

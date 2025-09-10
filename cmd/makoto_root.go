@@ -1,63 +1,59 @@
 package cmd
 
 import (
-	//"github.com/afeldman/Makoto/makoto"
-
+	"github.com/afeldman/Makoto/makoto"
 	"github.com/spf13/cobra"
 )
 
 var (
-	Makoto = &cobra.Command{
-		Use:   "Makoto",
-		Short: "Makoto is a karel package configurator",
-		Long: `
-	   	  MAKOTO A KAREL PACKAGE CONFIGURATOR
-	   	  ===================================
-
-Makoto is a Package Configurator for Karel files.
-The idea to this tool was given using package config in linux.
-The package configure it is easy to build your code because
-the tool handels the setting for the compiler flags.
-
-Beacause FANUC KAREL has a limitation on the number of lines in
-the code I do have the programing stype to seperate all KAREL
-information in dedecated files. To get the information together
-this tool helps me.
-
-AUTHOR:
-	Anton Feldmann <anton.feldmann@gmail.com>
-
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\`,
-	}
-
 	confFile string
+
+	Makoto = &cobra.Command{
+		Use:   "makoto",
+		Short: "Karel package configurator (KPC/TOML)",
+		Long: `Makoto - Karel Package Configurator
+
+Manage and inspect KPC package metadata written in TOML.
+
+Config:
+  - Default config path: ~/.config/makoto/makoto.toml
+  - Override with --config <path>
+
+Common commands:
+  makoto version
+  makoto package version <name> [version]
+  makoto package author  <name> [version]
+  makoto all
+`,
+	}
 )
 
 func init() {
+	// Global flag
+	Makoto.PersistentFlags().StringVar(
+		&confFile,
+		"config",
+		"",
+		"Path to Makoto config file (default: $HOME/.config/makoto/makoto.toml)",
+	)
+
+	// Hook into cobra’s lifecycle
 	cobra.OnInitialize(initConfig)
 
-	Makoto.PersistentFlags().StringVar(&confFile, "config",
-		"",
-		"config file (default $HOME/.config/makoto/makoto.toml)")
-
-	Makoto.AddCommand(version)
-	Makoto.AddCommand(kpc_cmd)
-	Makoto.AddCommand(all)
 }
 
 func Execute() {
-	Makoto.Execute()
+	_ = Makoto.Execute()
 }
 
 func initConfig() {
-
-	/*var makoto_ makoto.Makoto
-	if len(strings.TrimSpace(confFile)) == 0 {
-		makoto_ = *makoto.Init()
+	// Initialize Makoto config + DB
+	var m *makoto.Makoto
+	if confFile == "" {
+		m = makoto.InitMakoto()
 	} else {
-		makoto_ = *makoto.Config(confFile)
+		m = makoto.ConfigMakoto(confFile)
 	}
-	makoto_.Store()
-	makoto_.DBInit()*/
-
+	m.StoreMakoto()
+	m.DBInit()
 }

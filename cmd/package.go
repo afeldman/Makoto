@@ -15,11 +15,5 @@ AUTHOR:
 }
 
 func init() {
-	kpc_cmd.AddCommand(authors)
-	kpc_cmd.AddCommand(discription)
-	kpc_cmd.AddCommand(pversion)
-	kpc_cmd.AddCommand(source)
-	kpc_cmd.AddCommand(requirements)
-	kpc_cmd.AddCommand(conflicts)
-	kpc_cmd.AddCommand(prefix)
+	Makoto.AddCommand(kpc_cmd)
 }

@@ -6,26 +6,32 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const MakotoVersion = "0.3.0"
+// Makoto CLI version (semantic versioning)
+const MakotoVersion = "0.3.1"
 
 var version = &cobra.Command{
 	Use:   "version",
-	Short: "print version number of Makoro",
-	Long: `
-MAKOTO has a changing versions. This means during the work on MAKOTO,
-the version number will change.
-I look forward to be down compatible with all MAKOTO_VERSIONS.
-But because Makoto works with YAML this statement should held true as long as
-the YAML Syntax stays stable. If a big YAML change happen, we are going to see :)
+	Short: "Print the Makoto version",
+	Long: `Show the Makoto CLI version.
 
-AUTHOR:
-	Anton Feldmann <anton.feldmann@gmail.com>
+	Notes:
+	- Makoto follows semantic versioning (MAJOR.MINOR.PATCH).
+	- KPC files are written in TOML (not YAML).
+	- Backwards compatibility of the CLI and the KPC TOML schema may change
+	  across MAJOR versions.
+
+	Author:
+	  Anton Feldmann <anton.feldmann@gmail.com>
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Makotos's Version is: ", MakotoVersion)
+		fmt.Println("Makoto version:", MakotoVersion)
 	},
 }
 
 func GetVersion() string {
 	return MakotoVersion
+}
+
+func init() {
+	Makoto.AddCommand(version)
 }

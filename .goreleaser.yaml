@@ -1,5 +1,7 @@
 # This is an example .goreleaser.yml file with some sensible defaults.
 # Make sure to check the documentation at https://goreleaser.com
+version: 2
+
 before:
   hooks:
     # You may remove this if you don't use go modules.
@@ -11,13 +13,16 @@ builds:
       - linux
       - windows
       - darwin
-archives:
-  - replacements:
-      darwin: Darwin
-      linux: Linux
-      windows: Windows
-      386: i386
-      amd64: x86_64
+    goarch:
+      - amd64
+      - 386
+    goarm:
+      - 6
+      - 7
+    main: ./makoto.go
+    binary: makoto
+    ldflags:
+      - -s -w -X github.com/afeldman/Makoto/cmd.Version={{.Version}}
 checksum:
   name_template: 'checksums.txt'
 snapshot:

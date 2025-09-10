@@ -1,49 +1,42 @@
-// Copyright Anton Feldmann
-//
-// KPC is a Karel package management structure.
-// This structure is used to inform the tools about the structure of the project
 package kpc
 
-//Repository is a structure to represend the developmentfiles
-//the basic repository protocol is git
-//the tag is the hash in the git tree.
+// Repository beschreibt die Quellcode-Herkunft eines Pakets.
+// Standard ist ein Git-Repository, zusätzlich mit optionalem Tag, Commit (rev) oder Branch.
 type Repository struct {
-	URL string `toml:"url"`
-	Tag string `toml:"tag"`
+	URL    string `toml:"url"`              // Git URL
+	Tag    string `toml:"tag,omitempty"`    // Tag Name
+	Rev    string `toml:"rev,omitempty"`    // Commit Hash
+	Branch string `toml:"branch,omitempty"` // Optional Branch
 }
 
-// init a repo with default values
+// InitRepository liefert ein Repository mit Defaultwerten zurück.
 func InitRepository() *Repository {
-	return &Repository{URL: "", Tag: ""}
+	return &Repository{
+		URL:    "",
+		Tag:    "",
+		Rev:    "",
+		Branch: "",
+	}
 }
 
-// set a tag
-func (repo *Repository) SetTag(tag string) {
-	repo.Tag = tag
-}
+/*********************** Getter & Setter ***********************/
 
-// get a tag
-func (repo *Repository) GetTag() *string {
-	return &(repo.Tag)
-}
+// URL
+func (repo *Repository) SetURL(address string) { repo.URL = address }
+func (repo *Repository) GetURL() *string       { return &repo.URL }
 
-// set the url
-func (repo *Repository) SetURL(address string) {
-	repo.URL = address
-}
+// Tag
+func (repo *Repository) SetTag(tag string) { repo.Tag = tag }
+func (repo *Repository) GetTag() *string   { return &repo.Tag }
 
-// get project url
-func (repo *Repository) GetURL() *string {
-	return &(repo.URL)
-}
+// Rev
+func (repo *Repository) SetRev(rev string) { repo.Rev = rev }
+func (repo *Repository) GetRev() *string   { return &repo.Rev }
 
-// get the repository
-func (kpc_obj *KPC) GetRepo() *Repository {
-	return &(kpc_obj.Repository)
-}
+// Branch
+func (repo *Repository) SetBranch(branch string) { repo.Branch = branch }
+func (repo *Repository) GetBranch() *string      { return &repo.Branch }
 
-/*********************** Setter ***********************/
-
-func (kpc_obj *KPC) AddRepo(repo Repository) {
-	kpc_obj.Repository = repo
-}
+// Zugriff über KPC
+func (kpc_obj *KPC) GetRepo() *Repository    { return &kpc_obj.Repository }
+func (kpc_obj *KPC) AddRepo(repo Repository) { kpc_obj.Repository = repo }

@@ -1,9 +1,5 @@
 package cmd
 
-// Copyright Anton Feldmann
-//
-// This structure is used to inform the tools about the structure of the project
-//
 import (
 	"fmt"
 
@@ -14,20 +10,23 @@ import (
 var all = &cobra.Command{
 	Use:   "all",
 	Short: "List all available packages",
-	Long: `
-Makoto works an a list of central toml files.
-All files in this central foulder how have the ending kcp
-and the name tag can be displayed.
-Make shure your kpc file contains all information.
-as more as information the project kpc file contains,
-as more as usefull is Makoto
+	Long: `List all packages currently registered in the local Makoto database.
 
-AUTHOR:
-	anton feldmann <anton.feldmann@gmail.com>
-`,
-	Run: func(cmd *cobra.Command, args []string) {
-		for _, kpc := range makoto.All() {
-			fmt.Println(kpc.Name)
+Each package is displayed with its name and version (name@version).`,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		pkgs := makoto.All()
+		if len(pkgs) == 0 {
+			fmt.Println("no packages registered")
+			return nil
 		}
+
+		for _, kpc := range pkgs {
+			fmt.Printf("%s@%s\n", kpc.Name, kpc.Version)
+		}
+		return nil
 	},
+}
+
+func init() {
+	Makoto.AddCommand(all)
 }
