@@ -122,4 +122,4 @@ makoto --config /path/to/makoto.toml
 
 ## License
 
-MIT – © Anton Feldmann
+MIT – © Anton Feldmann <anton.feldmann@gmail.com>
