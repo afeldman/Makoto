@@ -1,15 +1,15 @@
 // Copyright Anton Feldmann
 //
 // packages can depend on different pages. This structure will list all information
-//
 package kpc
 
 // packages can contain requirements.
 // this methods readout the information of additional KPC packages.
 // if the packages are not available, then the program is not buildable
 type Requirement struct {
-	Name    string `toml:"name"`
-	Version string `toml:"version"`
+	Name    string     `toml:"name"`
+	Version string     `toml:"version,omitempty"`
+	Source  Repository `toml:"source,omitempty"`
 }
 
 // build a Requirement structure

@@ -38,5 +38,5 @@ func (repo *Repository) SetBranch(branch string) { repo.Branch = branch }
 func (repo *Repository) GetBranch() *string      { return &repo.Branch }
 
 // Zugriff über KPC
-func (kpc_obj *KPC) GetRepo() *Repository    { return &kpc_obj.Repository }
-func (kpc_obj *KPC) AddRepo(repo Repository) { kpc_obj.Repository = repo }
+func (kpc_obj *KPC) GetRepo() *Repository    { return &kpc_obj.Source }
+func (kpc_obj *KPC) AddRepo(repo Repository) { kpc_obj.Source = repo }

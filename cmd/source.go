@@ -35,7 +35,7 @@ Author:
 			return nil
 		}
 
-		repo := kpc.KPC.Repository
+		repo := kpc.KPC.Source
 		fmt.Printf("URL:    %s\n", repo.URL)
 		if repo.Tag != "" {
 			fmt.Printf("Tag:    %s\n", repo.Tag)

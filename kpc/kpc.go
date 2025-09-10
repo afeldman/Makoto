@@ -7,42 +7,40 @@ package kpc
 import "fmt"
 
 // KpcVersion changed the KPC Version. now we use TOML
-const KpcVersion = "0.2.0"
+const KpcVersion = "0.3.0"
 
 // kpc datastructurwe
 type KPC struct {
-	/********************             KPC          ********************/
-	KPCVersion string `toml:"kpc_version"` // version of the kpc
+	KPCVersion string `toml:"kpc_version"`
 
-	/******************** Package information data ********************/
-	Name         string        `toml:"name"`                   // project name
-	Description  string        `toml:"description"`            // project discription
-	Version      string        `toml:"version"`                // project version
-	Homepage     string        `toml:"url,omitempty"`          // project homepage
-	Requirements []Requirement `toml:"requirements,omitempty"` // dependnency list
-	Conflicts    []Conflict    `toml:"conflicts,omitempty"`    // known conflicts
-	Authors      []Author      `toml:"authors,omitempty"`      // authorname
-	Repository   Repository    `toml:"source,omitempty"`       // source code repository url
-	Issue        string        `toml:"issues,omitempty"`       // project issue homepage
-	Keywords     []string      `toml:"keywords,omitempty"`     // project issue homepage
+	// --- Package Information ---
+	Name         string        `toml:"name"`
+	Description  string        `toml:"description"`
+	Version      string        `toml:"version"`
+	Homepage     string        `toml:"url,omitempty"` // Projekt-Homepage
+	Requirements []Requirement `toml:"requirements,omitempty"`
+	Conflicts    []Conflict    `toml:"conflicts,omitempty"`
+	Authors      []Author      `toml:"authors,omitempty"`
+	Source       Repository    `toml:"source,omitempty"` // Git-Repo des Projekts
+	Issue        string        `toml:"issues,omitempty"`
+	Keywords     []string      `toml:"keywords,omitempty"`
 
-	/********************* Package path settings***********************/
-	/*Package path settings*/
-	Prefix     string `toml:"prefix"`               // root path where the packge is installed
-	SrcDir     string `toml:"srcdir,omitempty"`     // installation path to project sourcefiles (*.kl)
-	TypeDir    string `toml:"typedir,omitempty"`    // installation path of project typefiles (*.t.kl)
-	IncludeDir string `toml:"includedir,omitempty"` // installation path to project headerfiles (*.h.kl)
-	ConstDir   string `toml:"constdir,omitempty"`   // installation path of the constant diclaraion files (*.c.kl)
-	FormDir    string `toml:"formdir,omitempty"`    // the files might be in an directory (*.ftx)
-	DictDir    string `toml:"dictdir,omitempty"`    // dictionaries are available for the (*.utx)
+	// --- Path Settings ---
+	Prefix     string `toml:"prefix"`
+	SrcDir     string `toml:"srcdir,omitempty"`
+	TypeDir    string `toml:"typedir,omitempty"`
+	IncludeDir string `toml:"includedir,omitempty"`
+	ConstDir   string `toml:"constdir,omitempty"`
+	FormDir    string `toml:"formdir,omitempty"`
+	DictDir    string `toml:"dictdir,omitempty"`
 
-	/*************** specific file includes ***************************/
-	Main     string   `toml:"main"`               // the source file to compile
-	Dicts    []string `toml:"dicts,omitempty"`    // dictionary file
-	Forms    []string `toml:"forms,omitempty"`    // form file
-	Types    []string `toml:"types,omitempty"`    // the library for
-	Includes []string `toml:"includes,omitempty"` // specific header files for comilation
-	Consts   []string `toml:"consts,omitempty"`   // the const files of this project
+	// --- File Includes ---
+	Main     string   `toml:"main"`
+	Dicts    []string `toml:"dicts,omitempty"`
+	Forms    []string `toml:"forms,omitempty"`
+	Types    []string `toml:"types,omitempty"`
+	Includes []string `toml:"includes,omitempty"`
+	Consts   []string `toml:"consts,omitempty"`
 }
 
 // initilize a KPC object
@@ -53,7 +51,7 @@ func InitKPC(name string) *KPC {
 		Description:  "",
 		Version:      "",
 		Homepage:     "",
-		Repository:   *(InitRepository()),
+		Source:       *(InitRepository()),
 		Issue:        "",
 		Prefix:       "",
 		SrcDir:       "",
